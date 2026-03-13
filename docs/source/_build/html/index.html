@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryptnox Hardware Wallet card Wallet — API Reference &mdash; Cryptnox Hardware Wallet card Wallet 1.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0912efa5" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/index.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ab756d2f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/custom.js?v=f0d783cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lifecycle management" href="lifecycle.html" />
+<link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Cryptnox Hardware Wallet card Wallet — API Reference | Cryptnox Docs" />
+<meta property="og:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta property="og:url" content="https://docs.cryptnox.com/Hardware Wallet card-wallet/index.html" />
+<meta property="og:site_name" content="Cryptnox Docs" />
+<meta property="og:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="420" />
+<meta property="og:image:alt" content="Cryptnox Hardware Wallet card Wallet Technical Documentation" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Cryptnox Hardware Wallet card Wallet — API Reference | Cryptnox Docs" />
+<meta name="twitter:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta name="twitter:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://docs.cryptnox.com/#organization",
+      "name": "Cryptnox",
+      "url": "https://www.cryptnox.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://docs.cryptnox.com/wp-content/uploads/2025/07/cryptnox-logo.png",
+        "width": "380",
+        "height": "71"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://docs.cryptnox.com/#website",
+      "url": "https://docs.cryptnox.com",
+      "name": "Cryptnox Docs",
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "Cryptnox Hardware Wallet card Wallet — API Reference | Cryptnox Docs",
+      "description": "Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.",
+      "author": {
+        "@type": "Organization",
+        "name": "Cryptnox"
+      },
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://docs.cryptnox.com/#website"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Cryptnox Hardware Wallet card Wallet",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "JavaCard"
+      }
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GT-PJ7HDFB');
+</script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #101f2e" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Cryptnox Hardware Wallet card Wallet
+              <img src="_static/cryptnox-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lifecycle.html">Lifecycle management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure_channel.html">Secure channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seed_management.html">Seed management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_derivation.html">Key derivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">EC signature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_setup.html">Setup &amp; channel commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_crypto.html">Cryptographic commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_data.html">Data commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_user_keys.html">User key &amp; configuration commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status_codes.html">Status codes reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #101f2e" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Cryptnox Hardware Wallet card Wallet</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cryptnox Hardware Wallet card Wallet — API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cryptnox-Hardware Wallet card-wallet-api-reference">
+<h1>Cryptnox Hardware Wallet card Wallet — API Reference<a class="headerlink" href="#cryptnox-Hardware Wallet card-wallet-api-reference" title="Link to this heading"></a></h1>
+<p><strong>Doc revision 1.0</strong> — for Cryptnox Hardware Wallet card Wallet v1.6.1</p>
+<p>Basic version with user auth by ECDSA 256r1, RSA2048 and FIDO auth.</p>
+<p>This JavaCard Open Platform 3 applet provides basic HSM-like “cryptoki” capabilities for
+managing crypto-currencies private key secure storage and signature for any blockchain using
+SECP256k1 or SECP256r1 for ECDSA of the transactions. This applet acts like a hierarchical
+key tree Hardware Wallet card wallet.</p>
+<p>The main purposes are key generation, key derivation, authentication and signing.</p>
+<p>Communication with the card happens through a simple APDU interface, together with a Secure
+Channel guaranteeing confidentiality, authentication and integrity of all commands. Many parts
+of the card comply with ISO/IEC 7816 (1/2/3/…) and Global Platform standards. T=1 mode used.</p>
+<p>The secure channel is quite similar to GP SCP03. The applet uses Extended APDU to stick on T=1
+single query, single answer.</p>
+<p>The applet hosts a “Dual Basic Group Secret” EC secret key, which is a secret designed to be
+shared within a pair of Hardware Wallet card Wallet cards. This is loaded at factory with a one-shot encryption.
+This secures the dual generation process.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lifecycle.html">Lifecycle management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html#card-startup">Card startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html#initialization">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html#pairing">Pairing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html#reset">Reset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="secure_channel.html">Secure channel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="secure_channel.html#opening-a-secure-channel">Opening a secure channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_channel.html#mutual-authentication">Mutual authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure_channel.html#encrypted-apdus">Encrypted APDUs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#pin-authentication">PIN authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#user-key-authentication">User key authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#disabling-pin-auth">Disabling PIN auth</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="seed_management.html">Seed management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="seed_management.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seed_management.html#generation">Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seed_management.html#recovery">Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seed_management.html#key-source-types">Key source types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="key_derivation.html">Key derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="key_derivation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key_derivation.html#dual-curve-support">Dual curve support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key_derivation.html#derivation-sources">Derivation sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key_derivation.html#parent-key-caching">Parent key caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key_derivation.html#performance-considerations">Performance considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">EC signature</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#signature-types">Signature types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#ephemeral-nonce">Ephemeral nonce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#ecdsa-output-format">ECDSA output format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#bip340-schnorr-output-format">BIP340 Schnorr output format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#pinless-signing">Pinless signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#pin-and-auth-reset-after-signing">PIN and auth reset after signing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands_setup.html">Setup &amp; channel commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#select">SELECT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#get-card-pubkey">GET CARD PUBKEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#get-manufacturer-certificate">GET MANUFACTURER CERTIFICATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#get-card-certificate">GET CARD CERTIFICATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#init">INIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#open-secure-channel">OPEN SECURE CHANNEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#mutually-authenticate">MUTUALLY AUTHENTICATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_setup.html#change-pairing-key">CHANGE PAIRING KEY</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands_crypto.html">Cryptographic commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#verify-pin">VERIFY PIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#change-pin">CHANGE PIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#unblock-pin">UNBLOCK PIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#load-key">LOAD KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#derive-key">DERIVE KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#generate-trng-random">GENERATE TRNG RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#generate-key">GENERATE KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#sign">SIGN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#decrypt">DECRYPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_crypto.html#reset">RESET</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands_data.html">Data commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands_data.html#get-card-info-read-data">GET CARD INFO / READ DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_data.html#get-history">GET HISTORY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_data.html#write-data">WRITE DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_data.html#get-pubkey">GET PUBKEY</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands_user_keys.html">User key &amp; configuration commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#add-user-key">ADD USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#check-user-key">CHECK USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#delete-user-key">DELETE USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#set-pinless-path">SET PINLESS PATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#set-pin-auth">SET PIN AUTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands_user_keys.html#set-pub-export">SET PUB EXPORT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="status_codes.html">Status codes reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="status_codes.html#standard-status-words">Standard status words</a></li>
+<li class="toctree-l2"><a class="reference internal" href="status_codes.html#secure-channel-status-words">Secure channel status words</a></li>
+<li class="toctree-l2"><a class="reference internal" href="status_codes.html#pin-retry-behavior">PIN retry behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="status_codes.html#puk-retry-behavior">PUK retry behavior</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lifecycle.html" class="btn btn-neutral float-right" title="Lifecycle management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Cryptnox.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-PJ7HDFB', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

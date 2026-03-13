@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status codes reference &mdash; Cryptnox Hardware Wallet card Wallet 1.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0912efa5" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/status_codes.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ab756d2f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/custom.js?v=f0d783cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User key &amp; configuration commands" href="commands_user_keys.html" />
+<link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/status_codes.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Status codes reference | Cryptnox Docs" />
+<meta property="og:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta property="og:url" content="https://docs.cryptnox.com/Hardware Wallet card-wallet/status_codes.html" />
+<meta property="og:site_name" content="Cryptnox Docs" />
+<meta property="og:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="420" />
+<meta property="og:image:alt" content="Cryptnox Hardware Wallet card Wallet Technical Documentation" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Status codes reference | Cryptnox Docs" />
+<meta name="twitter:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta name="twitter:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://docs.cryptnox.com/#organization",
+      "name": "Cryptnox",
+      "url": "https://www.cryptnox.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://docs.cryptnox.com/wp-content/uploads/2025/07/cryptnox-logo.png",
+        "width": "380",
+        "height": "71"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://docs.cryptnox.com/#website",
+      "url": "https://docs.cryptnox.com",
+      "name": "Cryptnox Docs",
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "Status codes reference | Cryptnox Docs",
+      "description": "Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.",
+      "author": {
+        "@type": "Organization",
+        "name": "Cryptnox"
+      },
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://docs.cryptnox.com/#website"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Cryptnox Hardware Wallet card Wallet",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "JavaCard"
+      }
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GT-PJ7HDFB');
+</script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #101f2e" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cryptnox Hardware Wallet card Wallet
+              <img src="_static/cryptnox-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lifecycle.html">Lifecycle management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure_channel.html">Secure channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seed_management.html">Seed management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_derivation.html">Key derivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">EC signature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_setup.html">Setup &amp; channel commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_crypto.html">Cryptographic commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_data.html">Data commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_user_keys.html">User key &amp; configuration commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Status codes reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standard-status-words">Standard status words</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#secure-channel-status-words">Secure channel status words</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pin-retry-behavior">PIN retry behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#puk-retry-behavior">PUK retry behavior</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #101f2e" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cryptnox Hardware Wallet card Wallet</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Status codes reference</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="status-codes-reference">
+<h1>Status codes reference<a class="headerlink" href="#status-codes-reference" title="Link to this heading"></a></h1>
+<section id="standard-status-words">
+<h2>Standard status words<a class="headerlink" href="#standard-status-words" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 85.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success. When secure channel is open, this is always the outer SW; the real SW is
+encrypted in the response data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x63Cx</span></code></p></td>
+<td><p>Authentication failure. <code class="docutils literal notranslate"><span class="pre">x</span></code> = remaining tries. <code class="docutils literal notranslate"><span class="pre">0x63C0</span></code> = no tries left (power cycle
+required for PIN, or PUK tries exhausted for this session).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6700</span></code></p></td>
+<td><p>Wrong data length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6982</span></code></p></td>
+<td><p>Security status not satisfied. MAC verification failed — secure channel is aborted.
+Returned without MAC.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6983</span></code></p></td>
+<td><p>Path not allowed (e.g. pinless path doesn’t start with EIP1581).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6984</span></code></p></td>
+<td><p>Invalid data (decryption failed, invalid public key).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6985</span></code></p></td>
+<td><p>Conditions not satisfied (secure channel not open, PIN not verified, card not
+initialized, seed not loaded).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6986</span></code></p></td>
+<td><p>Command not allowed (key slot already filled, PIN auth disabled, xpub at depth &lt; 3).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Incorrect data parameters (invalid format, bad PIN format, malformed path).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A86</span></code></p></td>
+<td><p>Incorrect P1/P2 parameter.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A88</span></code></p></td>
+<td><p>Referenced data not found (pinless path not set, clear pubkey read not allowed).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6B00</span></code></p></td>
+<td><p>Wrong parameters (invalid parent key, unknown P1/P2 value).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6D00</span></code></p></td>
+<td><p>Instruction not supported (e.g. INIT on already initialized card).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x9840</span></code></p></td>
+<td><p>PUK verification not successful (used in CHANGE PIN with P1=PUK).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="secure-channel-status-words">
+<h2>Secure channel status words<a class="headerlink" href="#secure-channel-status-words" title="Link to this heading"></a></h2>
+<p>When the secure channel is open, all response status words are <code class="docutils literal notranslate"><span class="pre">0x9000</span></code> in the outer
+(plaintext) APDU. The actual status word is the last 2 bytes of the decrypted response data.</p>
+<p>The only exception is <code class="docutils literal notranslate"><span class="pre">0x6982</span></code>, which indicates the secure channel has been aborted and is
+returned in plaintext (without MAC).</p>
+</section>
+<section id="pin-retry-behavior">
+<h2>PIN retry behavior<a class="headerlink" href="#pin-retry-behavior" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Counter</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Per-session (transient)</p></td>
+<td><p>3 tries per power cycle. After 3 failures, returns <code class="docutils literal notranslate"><span class="pre">0x63C0</span></code> until power cycle.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Persistent (OwnerPIN)</p></td>
+<td><p>6 total tries across sessions. Depleted = PIN blocked, requires PUK to unblock.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="puk-retry-behavior">
+<h2>PUK retry behavior<a class="headerlink" href="#puk-retry-behavior" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Counter</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Per-session (transient)</p></td>
+<td><p>12 tries per power cycle. After 12 failures, returns <code class="docutils literal notranslate"><span class="pre">0x63C0</span></code> until power cycle.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Persistent</p></td>
+<td><p>None. PUK tries are unlimited across power cycles.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="commands_user_keys.html" class="btn btn-neutral float-left" title="User key &amp; configuration commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Cryptnox.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-PJ7HDFB', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
