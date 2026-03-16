@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication &mdash; Cryptnox Hardware Wallet card Wallet 1.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0912efa5" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/authentication.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ab756d2f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/custom.js?v=f0d783cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Seed management" href="seed_management.html" />
+    <link rel="prev" title="Secure channel" href="secure_channel.html" />
+<link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/authentication.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Authentication | Cryptnox Docs" />
+<meta property="og:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta property="og:url" content="https://docs.cryptnox.com/Hardware Wallet card-wallet/authentication.html" />
+<meta property="og:site_name" content="Cryptnox Docs" />
+<meta property="og:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="420" />
+<meta property="og:image:alt" content="Cryptnox Hardware Wallet card Wallet Technical Documentation" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Authentication | Cryptnox Docs" />
+<meta name="twitter:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta name="twitter:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://docs.cryptnox.com/#organization",
+      "name": "Cryptnox",
+      "url": "https://www.cryptnox.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://docs.cryptnox.com/wp-content/uploads/2025/07/cryptnox-logo.png",
+        "width": "380",
+        "height": "71"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://docs.cryptnox.com/#website",
+      "url": "https://docs.cryptnox.com",
+      "name": "Cryptnox Docs",
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "Authentication | Cryptnox Docs",
+      "description": "Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.",
+      "author": {
+        "@type": "Organization",
+        "name": "Cryptnox"
+      },
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://docs.cryptnox.com/#website"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Cryptnox Hardware Wallet card Wallet",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "JavaCard"
+      }
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GT-PJ7HDFB');
+</script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #101f2e" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cryptnox Hardware Wallet card Wallet
+              <img src="_static/cryptnox-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lifecycle.html">Lifecycle management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure_channel.html">Secure channel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pin-authentication">PIN authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retry-behavior">Retry behavior</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#user-key-authentication">User key authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-slots">Key slots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication-modes">Authentication modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fido-authentication">FIDO authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#disabling-pin-auth">Disabling PIN auth</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="seed_management.html">Seed management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_derivation.html">Key derivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">EC signature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_setup.html">Setup &amp; channel commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_crypto.html">Cryptographic commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_data.html">Data commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_user_keys.html">User key &amp; configuration commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status_codes.html">Status codes reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #101f2e" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cryptnox Hardware Wallet card Wallet</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Authentication</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="authentication">
+<h1>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h1>
+<section id="pin-authentication">
+<h2>PIN authentication<a class="headerlink" href="#pin-authentication" title="Link to this heading"></a></h2>
+<p>The PIN chosen during the initialization needs to be provided after each EC signature, because
+a signature resets the PIN validity.</p>
+<p>The PIN verification is done in a standard way through the secure channel. The PIN must be
+between 4 and 9 figures long.</p>
+<section id="retry-behavior">
+<h3>Retry behavior<a class="headerlink" href="#retry-behavior" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The PIN can be tested <strong>3 times</strong> before a disconnection of the card is required.</p></li>
+<li><p>After a power cycle, it can be tested <strong>3 more times</strong> before the PIN state is locked.</p></li>
+<li><p>When locked, the PIN requires unlocking with the PUK.</p></li>
+<li><p>When PIN tries need a power cycle, the command always returns <code class="docutils literal notranslate"><span class="pre">0x63C0</span></code>, even if the PIN
+is inserted correctly.</p></li>
+<li><p>After a power cycle, if the card still throws <code class="docutils literal notranslate"><span class="pre">0x63C0</span></code>, the PIN is blocked and the
+<code class="docutils literal notranslate"><span class="pre">UNBLOCK</span> <span class="pre">PIN</span></code> command must be used.</p></li>
+</ul>
+<p>After a successful signature command, the PIN verification is reset. A PIN verification is valid
+until the card powers off or a signature is performed.</p>
+<p>See the <a class="reference internal" href="commands_crypto.html#cmd-verify-pin"><span class="std std-ref">VERIFY PIN</span></a> command for more details.</p>
+</section>
+</section>
+<section id="user-key-authentication">
+<h2>User key authentication<a class="headerlink" href="#user-key-authentication" title="Link to this heading"></a></h2>
+<p>Another way to authenticate the user is with an EC256r1 or RSA key pair. There’s a random
+challenge to be signed for PIN-like behavior. The public key is registered in the card, and
+the “blockchain” EC signature can be allowed with a signature from this user key: hash to be
+signed with the card must be signed with the user key.</p>
+<p>The goal of this function is to use the Hardware Wallet card Wallet card (to make transactions) in conjunction
+with a key storage such as iOS secure enclave Touch ID or a PC TPM, instead of using the PIN.</p>
+<p>The PIN check and user authentication is reset after any EC signature (of all the authorized
+hashes).</p>
+<p>This user auth by ECDSA can also be performed by an external FIDO authenticator.</p>
+<p>A user key can be uploaded in a slot only once, and requires a delete user key command if
+there’s already a key in the slot.</p>
+<section id="key-slots">
+<h3>Key slots<a class="headerlink" href="#key-slots" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Slot 1</strong>: EC 256r1 public key (X9.62 uncompressed format, 65 bytes: <code class="docutils literal notranslate"><span class="pre">04|X|Y</span></code>)</p></li>
+<li><p><strong>Slot 2</strong>: RSA 2048 public key (256 bytes modulus, exponent must be 65537)</p></li>
+<li><p><strong>Slot 3</strong>: FIDO key (<code class="docutils literal notranslate"><span class="pre">CredIDLength(1B)</span> <span class="pre">|</span> <span class="pre">CredID(up</span> <span class="pre">to</span> <span class="pre">64B)</span> <span class="pre">|</span> <span class="pre">ECpubkey(65B)</span></code>)</p></li>
+</ul>
+</section>
+<section id="authentication-modes">
+<h3>Authentication modes<a class="headerlink" href="#authentication-modes" title="Link to this heading"></a></h3>
+<p>There are 2 kinds of user auth:</p>
+<dl class="simple">
+<dt><strong>Challenge-Response</strong> (<code class="docutils literal notranslate"><span class="pre">P1=1</span></code> and <code class="docutils literal notranslate"><span class="pre">P1=2</span></code>):</dt><dd><p>Auth for all commands except SIGN. The card provides a random challenge, the user signs it.</p>
+</dd>
+<dt><strong>Auth for Sign</strong> (<code class="docutils literal notranslate"><span class="pre">P1=0</span></code> or <code class="docutils literal notranslate"><span class="pre">P1=0x10</span></code>):</dt><dd><p>Auth the transaction hash. The challenge is one or a set of hashes to be “blockchain” signed.
+When <code class="docutils literal notranslate"><span class="pre">P1</span></code> is OR’d with <code class="docutils literal notranslate"><span class="pre">0x10</span></code>, the data message is a hash list (1 to 4 hashes).</p>
+</dd>
+</dl>
+</section>
+<section id="fido-authentication">
+<h3>FIDO authentication<a class="headerlink" href="#fido-authentication" title="Link to this heading"></a></h3>
+<p>When the slot index is 3, this is a special case for a FIDO signature. The data must include
+the counter, making the data input:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hash(33-97B) | counter(4B) | ECsignature(EC256r1 ASN1)
+</pre></div>
+</div>
+<p>The card checks the signature as a webauthn “user verified” message:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sha256hash(rp_id) | [0x05] | counter_word | sha256hash(clientData)
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rp_id</span> <span class="pre">=</span> <span class="pre">&quot;cryptnox.ch&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clientData</span> <span class="pre">=</span> <span class="pre">'{&quot;type&quot;:</span> <span class="pre">&quot;webauthn.get&quot;,</span> <span class="pre">&quot;origin&quot;:</span> <span class="pre">&quot;https://cryptnox.ch&quot;,</span> <span class="pre">&quot;challenge&quot;:</span> <span class="pre">&quot;&quot;,</span> <span class="pre">&quot;clientExtensions&quot;:</span> <span class="pre">{}}'</span></code></p></li>
+</ul>
+<p>The restriction for FIDO2 user-auth-for-sign is a maximum of 3 hashes can be authorized at once
+(instead of 4).</p>
+</section>
+</section>
+<section id="disabling-pin-auth">
+<h2>Disabling PIN auth<a class="headerlink" href="#disabling-pin-auth" title="Link to this heading"></a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">PIN</span> <span class="pre">AUTH</span></code> command, one can disable the PIN auth and only let the auth performed
+by user authentication (public keys registered).</p>
+<p>See the <a class="reference internal" href="commands_user_keys.html#cmd-add-user-key"><span class="std std-ref">ADD USER KEY</span></a>, <a class="reference internal" href="commands_user_keys.html#cmd-check-user-key"><span class="std std-ref">CHECK USER KEY</span></a>, and <a class="reference internal" href="commands_user_keys.html#cmd-set-pin-auth"><span class="std std-ref">SET PIN AUTH</span></a> commands
+for all details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="secure_channel.html" class="btn btn-neutral float-left" title="Secure channel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="seed_management.html" class="btn btn-neutral float-right" title="Seed management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Cryptnox.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-PJ7HDFB', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

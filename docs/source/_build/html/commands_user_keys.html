@@ -1,0 +1,1158 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User key &amp; configuration commands &mdash; Cryptnox Hardware Wallet card Wallet 1.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0912efa5" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/commands_user_keys.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ab756d2f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/custom.js?v=f0d783cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Status codes reference" href="status_codes.html" />
+    <link rel="prev" title="Data commands" href="commands_data.html" />
+<link rel="canonical" href="https://docs.cryptnox.com/Hardware Wallet card-wallet/commands_user_keys.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="User key & configuration commands | Cryptnox Docs" />
+<meta property="og:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta property="og:url" content="https://docs.cryptnox.com/Hardware Wallet card-wallet/commands_user_keys.html" />
+<meta property="og:site_name" content="Cryptnox Docs" />
+<meta property="og:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="420" />
+<meta property="og:image:alt" content="Cryptnox Hardware Wallet card Wallet Technical Documentation" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="User key & configuration commands | Cryptnox Docs" />
+<meta name="twitter:description" content="Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards." />
+<meta name="twitter:image" content="https://docs.cryptnox.com/wp-content/uploads/2025/08/Technical-Documentation-1024x538.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://docs.cryptnox.com/#organization",
+      "name": "Cryptnox",
+      "url": "https://www.cryptnox.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://docs.cryptnox.com/wp-content/uploads/2025/07/cryptnox-logo.png",
+        "width": "380",
+        "height": "71"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://docs.cryptnox.com/#website",
+      "url": "https://docs.cryptnox.com",
+      "name": "Cryptnox Docs",
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "User key &amp; configuration commands | Cryptnox Docs",
+      "description": "Cryptnox Hardware Wallet card Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.",
+      "author": {
+        "@type": "Organization",
+        "name": "Cryptnox"
+      },
+      "publisher": {
+        "@id": "https://docs.cryptnox.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://docs.cryptnox.com/#website"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Cryptnox Hardware Wallet card Wallet",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "JavaCard"
+      }
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GT-PJ7HDFB');
+</script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #101f2e" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cryptnox Hardware Wallet card Wallet
+              <img src="_static/cryptnox-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lifecycle.html">Lifecycle management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure_channel.html">Secure channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seed_management.html">Seed management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_derivation.html">Key derivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">EC signature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_setup.html">Setup &amp; channel commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_crypto.html">Cryptographic commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands_data.html">Data commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User key &amp; configuration commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#add-user-key">ADD USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-user-key">CHECK USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#delete-user-key">DELETE USER KEY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-pinless-path">SET PINLESS PATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-pin-auth">SET PIN AUTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-pub-export">SET PUB EXPORT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="status_codes.html">Status codes reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #101f2e" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cryptnox Hardware Wallet card Wallet</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User key &amp; configuration commands</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-key-configuration-commands">
+<h1>User key &amp; configuration commands<a class="headerlink" href="#user-key-configuration-commands" title="Link to this heading"></a></h1>
+<section id="add-user-key">
+<span id="cmd-add-user-key"></span><h2>ADD USER KEY<a class="headerlink" href="#add-user-key" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xD5</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel must be opened.</p>
+<p>This command registers a user public key in one of three slots. User keys provide an alternative
+authentication mechanism to the PIN: instead of typing a numeric code, the user proves identity by
+signing a challenge or a transaction hash with their private key. This enables integration with
+Hardware Wallet card security modules like iOS Secure Enclave, PC TPMs, or external FIDO authenticators.</p>
+<p>Each slot accepts a different key type, and once a key is written to a slot, it must be deleted
+with <a class="reference internal" href="#cmd-delete-user-key"><span class="std std-ref">DELETE USER KEY</span></a> before a new key can be stored in the same slot.
+The key is accompanied by a 64-byte free-text description that can be read back with the
+<a class="reference internal" href="commands_data.html#cmd-read-data"><span class="std std-ref">READ DATA</span></a> command (P1=slot index, P2=0).</p>
+<p><strong>Request Data — Slot 1 (EC 256r1, plaintext)</strong> — 142 bytes</p>
+<p>Slot 1 stores an EC secp256r1 public key in X9.62 uncompressed format. This is the standard
+NIST P-256 curve, widely supported by secure enclaves and TPMs.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Info text</p></td>
+<td><p>64B</p></td>
+<td><p>User-defined description (fixed 64 bytes, padded if shorter)</p></td>
+</tr>
+<tr class="row-even"><td><p>Public key</p></td>
+<td><p>65B</p></td>
+<td><p>EC 256r1 uncompressed (<code class="docutils literal notranslate"><span class="pre">04</span> <span class="pre">|</span> <span class="pre">X</span> <span class="pre">|</span> <span class="pre">Y</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request Data — Slot 2 (RSA 2048, plaintext)</strong> — 333 bytes</p>
+<p>Slot 2 stores a 2048-bit RSA public key. Only the modulus is transmitted; the public exponent
+is fixed at 65537 (<code class="docutils literal notranslate"><span class="pre">0x010001</span></code>) and is not sent.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x02</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Info text</p></td>
+<td><p>64B</p></td>
+<td><p>User-defined description (fixed 64 bytes)</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA modulus</p></td>
+<td><p>256B</p></td>
+<td><p>2048-bit modulus, big-endian. Exponent must be 65537.</p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RSA commands require the extended frame format header, as the payload exceeds 256 bytes.</p>
+</div>
+<p><strong>Request Data — Slot 3 (FIDO, plaintext)</strong> — variable</p>
+<p>Slot 3 is a special slot designed for FIDO2/WebAuthn authenticators. In addition to the EC public
+key, it stores the FIDO credential identifier, which is needed by the host to request an assertion
+from the external authenticator during the <a class="reference internal" href="#cmd-check-user-key"><span class="std std-ref">CHECK USER KEY</span></a> flow.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Info text</p></td>
+<td><p>64B</p></td>
+<td><p>User-defined description (fixed 64 bytes)</p></td>
+</tr>
+<tr class="row-even"><td><p>CredID length</p></td>
+<td><p>1B</p></td>
+<td><p>Length of credential ID (up to 64)</p></td>
+</tr>
+<tr class="row-odd"><td><p>CredID</p></td>
+<td><p>1-64B</p></td>
+<td><p>FIDO credential identifier</p></td>
+</tr>
+<tr class="row-even"><td><p>EC public key</p></td>
+<td><p>65B</p></td>
+<td><p>EC 256r1 uncompressed (<code class="docutils literal notranslate"><span class="pre">04</span> <span class="pre">|</span> <span class="pre">X</span> <span class="pre">|</span> <span class="pre">Y</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Invalid slot index</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6700</span></code></p></td>
+<td><p>Incorrect data length</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6985</span></code></p></td>
+<td><p>PIN not provided</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6984</span></code></p></td>
+<td><p>Invalid public key</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6986</span></code></p></td>
+<td><p>Slot already has a key (delete first)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the current implementation, EC public keys are not tested for point-on-curve validity when
+saved. On JCOP 4 platforms, the underlying Hardware Wallet card performs this validation implicitly during
+cryptographic operations.</p>
+</div>
+<hr class="docutils" />
+</section>
+<section id="check-user-key">
+<span id="cmd-check-user-key"></span><h2>CHECK USER KEY<a class="headerlink" href="#check-user-key" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xD6</span></code></p></td>
+<td><p>Mode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel must be opened.</p>
+<p>This command authenticates the user using a public key previously registered with
+<a class="reference internal" href="#cmd-add-user-key"><span class="std std-ref">ADD USER KEY</span></a>. A successful user key authentication is equivalent to
+a PIN verification. There are two distinct authentication modes, serving different purposes:</p>
+<ol class="arabic simple">
+<li><p><strong>Auth for Sign</strong> (P1=0x00 or P1=0x10): The user signs the transaction hash(es) to authorize
+a subsequent <code class="docutils literal notranslate"><span class="pre">SIGN</span></code> command. The card verifies the signature and, on success, unlocks the
+<code class="docutils literal notranslate"><span class="pre">SIGN</span></code> command for exactly those hash(es).</p></li>
+<li><p><strong>Challenge-Response</strong> (P1=0x01 then P1=0x02): The user requests a random challenge from
+the card, signs it with their private key, and sends the signature back. On success, this
+unlocks all commands that normally require PIN (except <code class="docutils literal notranslate"><span class="pre">SIGN</span></code>).</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The card cannot be simultaneously unlocked for “PIN” commands and for <code class="docutils literal notranslate"><span class="pre">SIGN</span></code>. When the PIN
+is not used, management commands must be unlocked via challenge-response (P1=1/2), then
+the <code class="docutils literal notranslate"><span class="pre">SIGN</span></code> must be unlocked separately via auth-for-sign (P1=0/0x10).</p>
+</div>
+<p><strong>P1=0x00 — Auth for Sign (single hash)</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code>-<code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Hash</p></td>
+<td><p>32B</p></td>
+<td><p>Transaction hash to authorize</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature</p></td>
+<td><p>var</p></td>
+<td><p>EC 256r1 ASN.1 DER (slot 1/3) or RSA 2048 PKCS#1 (slot 2)</p></td>
+</tr>
+</tbody>
+</table>
+<p>On success (response = <code class="docutils literal notranslate"><span class="pre">0x01</span></code>), the <code class="docutils literal notranslate"><span class="pre">SIGN</span></code> command is unlocked for this specific hash only.</p>
+<p><strong>P1=0x10 — Auth for Sign (hash list)</strong></p>
+<p>When multiple transactions need to be signed in one session, this mode accepts a list of up to
+4 hashes (or 3 for FIDO slot). The signed message includes a count byte followed by the
+concatenated hashes.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code>-<code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Hash count</p></td>
+<td><p>1B</p></td>
+<td><p>Number of hashes (1–4, or 1–3 for FIDO)</p></td>
+</tr>
+<tr class="row-even"><td><p>Hash list</p></td>
+<td><p>n x 32B</p></td>
+<td><p>Hashes to authorize (32B each)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Signature</p></td>
+<td><p>var</p></td>
+<td><p>EC 256r1 ASN.1 DER (slot 1/3) or RSA 2048 PKCS#1 (slot 2)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>P1=0x01 — Challenge Request</strong></p>
+<p>No data required (or MAC only). The card generates a random 256-bit nonce and returns it.
+This challenge must then be signed by the user and submitted with P1=0x02.</p>
+<p><strong>Response Data</strong> — 32 bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Challenge</p></td>
+<td><p>32B</p></td>
+<td><p>Random 256-bit nonce</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>P1=0x02 — Challenge Response</strong></p>
+<p>The user submits the signed challenge to prove they hold the private key. The hash is not included
+in the data because the card uses the challenge it generated internally.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code>-<code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Signature</p></td>
+<td><p>var</p></td>
+<td><p>Signature of the challenge (hash is provided by card internally)</p></td>
+</tr>
+</tbody>
+</table>
+<p>On success (response = <code class="docutils literal notranslate"><span class="pre">0x01</span></code>), this unlocks commands requiring PIN (except <code class="docutils literal notranslate"><span class="pre">SIGN</span></code>).</p>
+<p><strong>P1P2=0x0301 — Read FIDO Credential ID</strong></p>
+<p>Returns the credential ID associated with the FIDO user key slot (slot 3), which the host needs
+to request an assertion from the external FIDO authenticator.</p>
+<p><strong>Response Data</strong>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CredID length</p></td>
+<td><p>1B</p></td>
+<td><p>Length of credential ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>CredID</p></td>
+<td><p>var</p></td>
+<td><p>FIDO credential identifier</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>FIDO Registration and Authentication Flow</strong></p>
+<p>The following diagram illustrates the complete FIDO2 user registration and authentication flow
+between the external FIDO authenticator, the host PC, and the wallet card:</p>
+<figure class="align-center" id="id1">
+<img alt="FIDO2 authentication sequence diagram" src="_images/diagFIDOauth.png" />
+<figcaption>
+<p><span class="caption-text">FIDO2 user registration (ADD USER KEY) and authentication (CHECK USER KEY) sequence.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><strong>FIDO Signature Format (Slot 3)</strong></p>
+<p>When slot 3 is used for auth-for-sign or challenge-response, the data format differs from
+EC/RSA slots because it must include the FIDO monotonic counter. The card verifies the signature
+as a WebAuthn “user verified” assertion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sha256(rp_id) | 0x05 | counter | sha256(clientData)
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">rp_id</span> <span class="pre">=</span> <span class="pre">&quot;cryptnox.ch&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">clientData</span></code> is a fixed JSON template:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webauthn.get&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cryptnox.ch&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;challenge&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;base64url-encoded hash&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;clientExtensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>FIDO auth-for-sign data format:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hash(es)</p></td>
+<td><p>32-97B</p></td>
+<td><p>Transaction hash(es) to authorize</p></td>
+</tr>
+<tr class="row-odd"><td><p>Counter</p></td>
+<td><p>4B</p></td>
+<td><p>FIDO monotonic counter</p></td>
+</tr>
+<tr class="row-even"><td><p>EC signature</p></td>
+<td><p>var</p></td>
+<td><p>EC 256r1 ASN.1 DER</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>FIDO challenge-response data format (P1=0x02):</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Counter</p></td>
+<td><p>4B</p></td>
+<td><p>FIDO monotonic counter</p></td>
+</tr>
+<tr class="row-odd"><td><p>EC signature</p></td>
+<td><p>var</p></td>
+<td><p>EC 256r1 ASN.1 DER</p></td>
+</tr>
+</tbody>
+</table>
+<p>The FIDO slot is limited to 3 hashes (instead of 4) when using the hash-list mode (P1=0x10).</p>
+<p><strong>Response Data (all modes except Challenge Request and CredID read)</strong> — 1 byte</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Result</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code> = success, <code class="docutils literal notranslate"><span class="pre">0x00</span></code> = signature verification failed</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A return value of <code class="docutils literal notranslate"><span class="pre">0x00</span></code> with status <code class="docutils literal notranslate"><span class="pre">0x9000</span></code> means the signature was not properly verified:
+either the signature is invalid or the user key for this slot was not initialized. After a
+failed challenge attempt, a new challenge must be requested (P1=1) before retrying (P1=2).</p>
+</div>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success (check result byte for verification outcome)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Invalid slot index or incorrect data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6985</span></code></p></td>
+<td><p>FIDO key not registered (CredID read), or P1=2 sent before P1=1, or challenge
+expired (power cycle/deselect)</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+<section id="delete-user-key">
+<span id="cmd-delete-user-key"></span><h2>DELETE USER KEY<a class="headerlink" href="#delete-user-key" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xD7</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel must be opened.</p>
+<p>Deletes the user public key from the specified slot. Once a key has been written to a slot with
+<a class="reference internal" href="#cmd-add-user-key"><span class="std std-ref">ADD USER KEY</span></a>, it cannot be overwritten directly — it must first be
+deleted with this command. The PUK is required for authorization, providing an additional layer
+of protection against unauthorized key removal.</p>
+<p><strong>Request Data (plaintext)</strong> — 13 bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Slot index</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code>-<code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Invalid slot index</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6700</span></code></p></td>
+<td><p>Data length not 13 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x63Cx</span></code></p></td>
+<td><p>Wrong PUK (x = remaining tries before power cycle)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6986</span></code></p></td>
+<td><p>Slot is empty (nothing to delete)</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+<section id="set-pinless-path">
+<span id="cmd-set-pinless-path"></span><h2>SET PINLESS PATH<a class="headerlink" href="#set-pinless-path" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xC1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel opened, seed or extended key loaded.</p>
+<p>This command enables the pinless signing feature, which allows the <code class="docutils literal notranslate"><span class="pre">SIGN</span></code> command to be executed
+without PIN authentication or even a secure channel. This is specifically designed for contactless
+(NFC) payment transactions where typing a PIN is impractical, such as tap-and-pay at a point of
+sale.</p>
+<p>For security, the pinless path is restricted to a BIP32 derivation path that must begin with the
+EIP-1581 prefix <code class="docutils literal notranslate"><span class="pre">m/43'/60'/1581'</span></code>. EIP-1581 defines a purpose path for non-wallet usage of keys,
+providing a clear segregation between pinless keys and standard PIN-protected wallet keys.
+Despite this naming, the keys can still be used for wallet transactions — the path restriction
+is purely a security boundary.</p>
+<p>The path must be at least 3 levels deep and at most 8 levels. It is provided as raw 32-bit
+big-endian integers, 4 bytes per level, in the same format as the <code class="docutils literal notranslate"><span class="pre">DERIVE</span> <span class="pre">KEY</span></code> command.</p>
+<p>This feature only supports the K1 (secp256k1) key pair.</p>
+<p><strong>Request Data — Enable pinless (plaintext)</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+<tr class="row-odd"><td><p>Path elements</p></td>
+<td><p>12-32B</p></td>
+<td><p>3-8 levels x 4 bytes (32-bit big-endian)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Path must start with <code class="docutils literal notranslate"><span class="pre">m/43'/60'/1581'</span></code> (EIP-1581 prefix):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0x8000002B | 0x8000003C | 0x8000062D | ...
+</pre></div>
+</div>
+<p><strong>Request Data — Disable pinless (plaintext)</strong></p>
+<p>To disable the pinless feature, send the command with only the PUK and no path data. The PUK
+verification still applies.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization (no path = disable)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x63Cx</span></code></p></td>
+<td><p>Wrong PUK (x = remaining tries before power cycle)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Data length not a multiple of 4, or path not between 12 and 32 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6983</span></code></p></td>
+<td><p>Path doesn’t start with EIP-1581 prefix (<code class="docutils literal notranslate"><span class="pre">m/43'/60'/1581'</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6985</span></code></p></td>
+<td><p>No seed or extended key loaded (checked before PUK)</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+<section id="set-pin-auth">
+<span id="cmd-set-pin-auth"></span><h2>SET PIN AUTH<a class="headerlink" href="#set-pin-auth" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xC3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel must be opened.</p>
+<p>This command controls whether PIN-based authentication is allowed. By default, both PIN and user
+key authentication are available. Disabling PIN auth forces the user to authenticate exclusively
+through the <a class="reference internal" href="#cmd-check-user-key"><span class="std std-ref">CHECK USER KEY</span></a> mechanism (EC/RSA/FIDO signatures).</p>
+<p>This is useful in high-security deployments where a numeric PIN is considered insufficient and
+all authentication must go through a Hardware Wallet card key (Secure Enclave, TPM, FIDO authenticator).</p>
+<p>When disabling PIN auth (status byte &gt; 0), the card verifies that at least one user public key
+has been registered; otherwise it returns <code class="docutils literal notranslate"><span class="pre">0x6986</span></code>. This prevents accidentally locking the user
+out of the card.</p>
+<p>To re-enable PIN auth, call this command with the status byte set to <code class="docutils literal notranslate"><span class="pre">0x00</span></code>.</p>
+<p><strong>Request Data (plaintext)</strong> — 13 bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Status</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> = enable PIN auth; <code class="docutils literal notranslate"><span class="pre">&gt;0</span></code> = disable PIN auth</p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x63Cx</span></code></p></td>
+<td><p>Wrong PUK (x = remaining tries before power cycle)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Data length is not 13 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6986</span></code></p></td>
+<td><p>Disable requested but no user public key loaded</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+<section id="set-pub-export">
+<span id="cmd-set-pub-export"></span><h2>SET PUB EXPORT<a class="headerlink" href="#set-pub-export" title="Link to this heading"></a></h2>
+<p><strong>Request APDU</strong> (encrypted)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CLA</p></th>
+<th class="head"><p>INS</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+<th class="head"><p>LC</p></th>
+<th class="head"><p>Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xC5</span></code></p></td>
+<td><p>Feature</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>var</p></td>
+<td><p>MAC | Encrypted data</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preconditions</strong>: Secure Channel opened, seed loaded.</p>
+<p>This command controls two independent public key export features. Both are disabled by default
+from factory and after every card reset, ensuring that public key data is not accidentally exposed.</p>
+<p><strong>P1=0x00 — Extended public key (xpub) export</strong></p>
+<p>Enables or disables the ability to read extended public keys (BIP32 xpub) via the
+<a class="reference internal" href="commands_data.html#cmd-get-pubkey"><span class="std std-ref">GET PUBKEY</span></a> command with P2=0x02. The xpub contains the chain code and
+is sufficient to derive all child public keys at that level and below, making it a sensitive piece
+of data that allows address enumeration.</p>
+<p><strong>P1=0x01 — Clear public key reading (without PIN or SC)</strong></p>
+<p>Enables or disables the ability to read the current public key without PIN verification or even
+a secure channel. This is designed for point-of-sale scenarios where a reader needs to identify
+the card’s payment address via a simple NFC tap. When enabled, the public key can be read by
+anyone with physical access to the card.</p>
+<p><strong>P1 values</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 85.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>P1</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code></p></td>
+<td><p>xpub export capability</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code></p></td>
+<td><p>Clear public key reading (without PIN or SC)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request Data (plaintext)</strong> — 13 bytes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Status</p></td>
+<td><p>1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> = disable; <code class="docutils literal notranslate"><span class="pre">&gt;0</span></code> = enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>PUK</p></td>
+<td><p>12B</p></td>
+<td><p>PUK for authorization</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status Words</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SW</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x9000</span></code></p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x63Cx</span></code></p></td>
+<td><p>Wrong PUK (x = remaining tries before power cycle)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A80</span></code></p></td>
+<td><p>Data length is not 13 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0x6985</span></code></p></td>
+<td><p>No seed or extended key loaded</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0x6A86</span></code></p></td>
+<td><p>P1 is not 0 or 1</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="commands_data.html" class="btn btn-neutral float-left" title="Data commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="status_codes.html" class="btn btn-neutral float-right" title="Status codes reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Cryptnox.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJ7HDFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-PJ7HDFB', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
