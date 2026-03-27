@@ -9,7 +9,7 @@ release = '1.6.1'
 
 # -- General configuration ---------------------------------------------------
 
-extensions = []
+extensions = ['sphinx_multiversion']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -19,6 +19,7 @@ language = 'en'
 # -- SEO meta tags -----------------------------------------------------------
 
 html_baseurl = 'https://cryptnox.github.io/cryptnox-hardware-wallet/'
+html_title = 'Cryptnox Hardware Wallet Docs'
 
 html_meta = {
     'description': 'Cryptnox Hardware Wallet v1.6.1 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.',
@@ -65,3 +66,12 @@ html_theme_options = {
 html_show_sourcelink = False
 html_copy_source = False
 html_show_sphinx = False
+
+# -- sphinx-multiversion config ----------------------------------------------
+
+smv_branch_whitelist   = r'^(main|v\d+\.\d+\.\d+)$'
+smv_tag_whitelist      = r'^v\d+\.\d+\.\d+$'
+smv_remote_whitelist   = r'^origin$'
+smv_released_pattern   = r'^refs/(heads/v\d+\.\d+\.\d+|tags/v\d+\.\d+\.\d+)$'
+smv_outputdir_format   = '{ref.name}'
+smv_prefer_remote_refs = False
