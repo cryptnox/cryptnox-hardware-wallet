@@ -18,7 +18,7 @@ language = 'en'
 
 # -- SEO meta tags -----------------------------------------------------------
 
-html_baseurl = 'https://cryptnox.github.io/cryptnox-hardware-wallet/'
+html_baseurl = 'https://docs.cryptnox.com/cryptnox-hardware-wallet/'
 html_title = 'Cryptnox Hardware Wallet Docs'
 
 html_meta = {
