@@ -11,20 +11,39 @@ document.addEventListener('DOMContentLoaded', function () {
     var btn = document.getElementById('version-dropdown-btn');
     var list = document.getElementById('version-dropdown-list');
     if (btn && list) {
+        // Move list to body so sidebar overflow:hidden doesn't clip it
+        document.body.appendChild(list);
+
+        function positionList() {
+            var rect = btn.getBoundingClientRect();
+            list.style.position = 'fixed';
+            list.style.top = (rect.bottom + 2) + 'px';
+            list.style.left = rect.left + 'px';
+            list.style.width = rect.width + 'px';
+        }
+
         btn.addEventListener('click', function (e) {
+            e.preventDefault();
             e.stopPropagation();
             var open = list.classList.toggle('open');
             btn.setAttribute('aria-expanded', open);
+            if (open) positionList();
         });
+
         list.querySelectorAll('.version-option').forEach(function (option) {
-            option.addEventListener('click', function () {
+            option.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 var url = this.getAttribute('data-url');
                 if (url) window.location.href = url;
             });
         });
-        document.addEventListener('click', function () {
-            list.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
+
+        document.addEventListener('click', function (e) {
+            if (!container.contains(e.target) && !list.contains(e.target)) {
+                list.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 });
@@ -32,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Add smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for internal links
-    const links = document.querySelectorAll('a[href^="#"]');
+    const links = document.querySelectorAll('a[href^="#"]:not(.version-option)');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
