@@ -1,33 +1,12 @@
 {%- if current_version %}
-<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> </span>
-    {{- current_version.name }}
-    <span class="fa fa-caret-down"></span>
-  </span>
-  <div class="rst-other-versions">
-    <dl>
-      <dt>Branches</dt>
-      {% for item in versions.branches %}
-        {% if item.name == current_version.name -%}
-          <dd><strong>{{ item.name }}</strong></dd>
-        {%- else -%}
-          <dd><a href="{{ item.url }}">{{ item.name }}</a></dd>
-        {%- endif %}
-      {% endfor %}
-    </dl>
-    {% if versions.tags %}
-    <dl>
-      <dt>Tags</dt>
-      {% for item in versions.tags %}
-        {% if item.name == current_version.name -%}
-          <dd><strong>{{ item.name }}</strong></dd>
-        {%- else -%}
-          <dd><a href="{{ item.url }}">{{ item.name }}</a></dd>
-        {%- endif %}
-      {% endfor %}
-    </dl>
-    {% endif %}
-  </div>
+<div id="version-selector-container">
+  <select id="version-select">
+    {% for item in versions.branches %}
+    <option value="{{ item.url }}"{% if item.name == current_version.name %} selected{% endif %}>{{ item.name }}</option>
+    {% endfor %}
+    {% for item in versions.tags %}
+    <option value="{{ item.url }}"{% if item.name == current_version.name %} selected{% endif %}>{{ item.name }}</option>
+    {% endfor %}
+  </select>
 </div>
 {%- endif %}
