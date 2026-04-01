@@ -12,13 +12,14 @@ Cryptographic capabilities
 The Cryptnox Hardware Wallet card supports a broad range of cryptographic functions for blockchain
 signing, enterprise authentication, and key derivation.
 
-It operates on both ``secp256k1`` and ``secp256r1`` elliptic curves, maintaining independent key
-derivation trees for each. The hierarchical deterministic wallet structure supports up to eight
-levels of derivation depth as defined in ``BIP32`` (for ``secp256k1``) and ``SLIP10`` (for
-``secp256r1``).
+It operates on ``secp256k1``, ``secp256r1``, and ``Ed25519`` (EdDSA) elliptic curves, maintaining
+independent key derivation trees for each. The hierarchical deterministic wallet structure supports
+up to eight levels of derivation depth as defined in ``BIP32`` (for ``secp256k1``), ``SLIP10``
+(for ``secp256r1``), and ``SLIP10`` (for ``Ed25519``).
 
 The card supports multiple signature schemes, including ECDSA (DER-encoded with canonical low-S
-enforcement), EOSIO-compatible ECDSA, and ``BIP340`` Schnorr signatures for Bitcoin use cases.
+enforcement), EOSIO-compatible ECDSA, ``BIP340`` Schnorr signatures for Bitcoin use cases, and
+EdDSA (``Ed25519``) for modern blockchain and authentication protocols.
 
 For symmetric cryptography, the card uses ``AES-256 CBC`` for data encryption and ``AES-256
 CMAC`` for message integrity. Key derivation follows the ``HMAC-SHA512`` standard used in
@@ -32,8 +33,8 @@ CMAC`` for message integrity. Key derivation follows the ``HMAC-SHA512`` standar
      - Algorithm
      - Details
    * - Asymmetric (signing)
-     - ECDSA, Schnorr (BIP340)
-     - ``secp256k1``, ``secp256r1``
+     - ECDSA, Schnorr (BIP340), EdDSA
+     - ``secp256k1``, ``secp256r1``, ``Ed25519``
    * - Symmetric (encryption)
      - ``AES-256 CBC``
      - Secure Channel data encryption
@@ -53,16 +54,17 @@ CMAC`` for message integrity. Key derivation follows the ``HMAC-SHA512`` standar
 .. seealso::
 
    - :doc:`signing` — signature types and output formats
-   - :doc:`key_derivation` — derivation depth, dual curve support, and caching
+   - :doc:`key_derivation` — derivation depth, triple curve support, and caching
    - :doc:`seed_management` — seed generation and dual generation mode
 
 Communication protocols
 -----------------------
 
 The Cryptnox Hardware Wallet card communicates using ISO 7816 APDUs over the ``T=1`` protocol, with
-full support for extended APDUs to handle larger payloads. All sensitive operations are performed
-through an authenticated Secure Channel, established via ECDH and protected by ``AES-256``
-encryption.
+full support for extended APDUs to handle larger payloads. In addition, the card supports ISO 14443
+NFC contactless communication, enabling wireless interaction with NFC-capable devices. All sensitive
+operations are performed through an authenticated Secure Channel, established via ECDH and protected
+by ``AES-256`` encryption.
 
 APDU model
 ^^^^^^^^^^
@@ -85,6 +87,13 @@ T=1 protocol
 
 A block-oriented communication model with built-in error detection and message chaining, ensuring
 reliable data transfer even during extended or chained APDUs.
+
+NFC contactless (ISO 14443)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The card supports ISO 14443 NFC contactless communication, allowing interaction with NFC-enabled
+smartphones, terminals, and other contactless readers. The same APDU command set is available over
+both the contact (ISO 7816) and contactless (ISO 14443) interfaces.
 
 Secure channel
 ^^^^^^^^^^^^^^
@@ -180,8 +189,9 @@ Private keys and seeds never leave the Secure Element. The card supports a dual-
 protocol, allowing two cards to securely generate and share identical seeds without ever exposing
 key material.
 
-Independent key derivation trees exist for both ``secp256k1`` and ``secp256r1`` curves, enabling
-simultaneous use across blockchain and enterprise contexts.
+Three independent key derivation trees exist for ``secp256k1``, ``secp256r1``, and ``Ed25519``
+(EdDSA) curves, enabling simultaneous use across blockchain, enterprise, and modern authentication
+contexts.
 
 All cryptographic operations are gated by PIN-based authentication, with optional pinless paths
 available for predefined derivation slots where repeated authentication is not required.
@@ -195,7 +205,8 @@ Communication security
 ^^^^^^^^^^^^^^^^^^^^^^
 
 Card communication is based on ISO 7816 APDU exchanges using the ``T=1`` protocol, with full
-support for extended-length APDUs.
+support for extended-length APDUs. ISO 14443 NFC contactless communication is also supported,
+providing the same command set over a wireless interface.
 
 A Secure Channel protocol, built on ECDH key exchange and ``AES-256`` encryption, ensures the
 confidentiality and integrity of all exchanges.

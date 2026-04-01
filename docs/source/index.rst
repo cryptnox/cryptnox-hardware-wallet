@@ -1,14 +1,12 @@
 Cryptnox Hardware Wallet — API Reference
 ============================================
 
-**Doc revision 1.0** — for Cryptnox Hardware Wallet v1.6.1
-
-Basic version with user auth by ECDSA 256r1, RSA2048 and FIDO auth.
+Basic Wallet Card v2.0.0 with user auth by ECDSA 256r1, EdDSA, RSA2048 and FIDO auth.
 
 This JavaCard Open Platform 3 applet provides basic HSM-like "cryptoki" capabilities for
 managing crypto-currencies private key secure storage and signature for any blockchain using
-SECP256k1 or SECP256r1 for ECDSA of the transactions. This applet acts like a hierarchical
-key tree hardware wallet.
+SECP256k1 or SECP256r1 for ECDSA, and Ed25519 for EdDSA of the transactions. This applet acts
+like a hierarchical key tree hardware wallet.
 
 The main purposes are key generation, key derivation, authentication and signing.
 

@@ -1,22 +1,22 @@
 Introduction
 ============
 
-The Cryptnox Hardware Wallet card is a JavaCard-based secure hardware wallet that provides hardware
+The Cryptnox Basic Wallet Card v2.0.0 is a JavaCard-based secure hardware wallet that provides hardware
 security module (HSM)-grade protection for blockchain operations. It is engineered to manage
 cryptographic keys, perform key derivation, and sign transactions directly within the card's
 secure environment, ensuring that private keys never leave the Secure Element.
 
-The card supports secure storage of seeds and private keys and offers compatibility with both
-``secp256k1`` and ``secp256r1`` elliptic curves. It is capable of generating ECDSA signatures
-and Bitcoin Schnorr signatures (BIP340) depending on the selected curve. User authentication
-mechanisms include PIN, PUK, pairing key, and optional external authentication through a user
-key or FIDO2 authenticator. These multiple layers of access control ensure both flexibility and
-robust security.
+The card supports secure storage of seeds and private keys and offers compatibility with
+``secp256k1``, ``secp256r1``, and ``Ed25519`` elliptic curves. It is capable of generating ECDSA
+signatures, Bitcoin Schnorr signatures (BIP340), and EdDSA signatures (RFC 8032) depending on the
+selected curve. User authentication mechanisms include PIN, PUK, pairing key, and optional external
+authentication through a user key or FIDO2 authenticator. These multiple layers of access control
+ensure both flexibility and robust security.
 
 Security model
 --------------
 
-The Cryptnox Hardware Wallet card is built on a Common Criteria EAL6+ certified Secure Element,
+The Cryptnox Basic Wallet Card v2.0.0 is built on a Common Criteria EAL6+ certified Secure Element,
 providing resistance to both physical and logical attacks. All sensitive data exchanges are
 protected by a Secure Channel protocol, based on principles similar to GlobalPlatform SCP03,
 which ensures mutual authentication, confidentiality, and integrity through ``AES-256``
@@ -45,7 +45,7 @@ revealing the private seed material outside the Secure Element.
 Supported algorithms and curves
 --------------------------------
 
-The Cryptnox Hardware Wallet card supports a comprehensive suite of asymmetric, symmetric, and
+The Cryptnox Basic Wallet Card v2.0.0 supports a comprehensive suite of asymmetric, symmetric, and
 hashing algorithms that align with current blockchain and authentication standards.
 
 Elliptic curves
@@ -64,6 +64,9 @@ Elliptic curves
    * - ``secp256r1`` (NIST P-256)
      - Enterprise security, TLS, FIDO2/WebAuthn
      - ECDSA
+   * - ``Ed25519``
+     - Solana, Cardano, Polkadot, and other EdDSA-based ecosystems
+     - EdDSA (RFC 8032)
 
 Signature algorithms
 ^^^^^^^^^^^^^^^^^^^^
@@ -83,6 +86,9 @@ Signature algorithms
      - Filtered to fit EOSIO standard
    * - Schnorr (BIP340)
      - ``secp256k1`` only
+     - 64-byte raw signature
+   * - EdDSA (RFC 8032)
+     - ``Ed25519`` only
      - 64-byte raw signature
 
 .. seealso::
@@ -111,7 +117,7 @@ Hierarchical deterministic key derivation is implemented following:
      - ``secp256k1``
      - Bitcoin HD wallet standard
    * - ``SLIP-0010``
-     - ``secp256r1``
+     - ``secp256r1``, ``Ed25519``
      - Alternative derivation for non-k1 curves
 
 Child keys are derived using ``HMAC-SHA512`` as per standard definitions. The card also supports
@@ -153,6 +159,8 @@ Standards compliance
      - Scope
    * - **ISO/IEC 7816** (Parts 1--4)
      - Smartcard electrical, transmission, and APDU communication
+   * - **ISO/IEC 14443** (Parts 2--4) Type A
+     - NFC contactless communication standard
    * - **GlobalPlatform SCP03**
      - Secure, authenticated communication between host and card
    * - **BIP32**, **BIP39**, **BIP44**
@@ -161,6 +169,8 @@ Standards compliance
      - Key derivation for non-k1 curves
    * - **BIP340**
      - Schnorr signature scheme for Bitcoin / ``secp256k1``
+   * - **RFC 8032**
+     - EdDSA signature scheme for ``Ed25519``
    * - **EIP-1581**
      - Pinless derivation path standard
 

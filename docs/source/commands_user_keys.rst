@@ -27,7 +27,7 @@ ADD USER KEY
 
 **Preconditions**: Secure Channel must be opened.
 
-This command registers a user public key in one of three slots. User keys provide an alternative
+This command registers a user public key in one of five slots. User keys provide an alternative
 authentication mechanism to the PIN: instead of typing a numeric code, the user proves identity by
 signing a challenge or a transaction hash with their private key. This enables integration with
 hardware security modules like iOS Secure Enclave, PC TPMs, or external FIDO authenticators.
@@ -123,6 +123,54 @@ from the external authenticator during the :ref:`CHECK USER KEY <cmd-check-user-
      - 12B
      - PUK for authorization
 
+**Request Data --- Slot 4 (EC 256r1, plaintext)** --- 142 bytes
+
+Slot 4 stores an EC secp256r1 public key, identical in format to slot 1.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - Slot index
+     - 1B
+     - ``0x04``
+   * - Info text
+     - 64B
+     - User-defined description (fixed 64 bytes, padded if shorter)
+   * - Public key
+     - 65B
+     - EC 256r1 uncompressed (``04 | X | Y``)
+   * - PUK
+     - 12B
+     - PUK for authorization
+
+**Request Data --- Slot 5 (EC 256r1, plaintext)** --- 142 bytes
+
+Slot 5 stores an EC secp256r1 public key, identical in format to slot 1.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - Slot index
+     - 1B
+     - ``0x05``
+   * - Info text
+     - 64B
+     - User-defined description (fixed 64 bytes, padded if shorter)
+   * - Public key
+     - 65B
+     - EC 256r1 uncompressed (``04 | X | Y``)
+   * - PUK
+     - 12B
+     - PUK for authorization
+
 **Status Words**
 
 .. list-table::
@@ -207,13 +255,13 @@ a PIN verification. There are two distinct authentication modes, serving differe
      - Description
    * - Slot index
      - 1B
-     - ``0x01``-``0x03``
+     - ``0x01``-``0x05``
    * - Hash
      - 32B
      - Transaction hash to authorize
    * - Signature
      - var
-     - EC 256r1 ASN.1 DER (slot 1/3) or RSA 2048 PKCS#1 (slot 2)
+     - EC 256r1 ASN.1 DER (slot 1/3/4/5) or RSA 2048 PKCS#1 (slot 2)
 
 On success (response = ``0x01``), the ``SIGN`` command is unlocked for this specific hash only.
 
@@ -232,7 +280,7 @@ concatenated hashes.
      - Description
    * - Slot index
      - 1B
-     - ``0x01``-``0x03``
+     - ``0x01``-``0x05``
    * - Hash count
      - 1B
      - Number of hashes (1--4, or 1--3 for FIDO)
@@ -241,7 +289,7 @@ concatenated hashes.
      - Hashes to authorize (32B each)
    * - Signature
      - var
-     - EC 256r1 ASN.1 DER (slot 1/3) or RSA 2048 PKCS#1 (slot 2)
+     - EC 256r1 ASN.1 DER (slot 1/3/4/5) or RSA 2048 PKCS#1 (slot 2)
 
 **P1=0x01 --- Challenge Request**
 
@@ -275,7 +323,7 @@ in the data because the card uses the challenge it generated internally.
      - Description
    * - Slot index
      - 1B
-     - ``0x01``-``0x03``
+     - ``0x01``-``0x05``
    * - Signature
      - var
      - Signature of the challenge (hash is provided by card internally)
@@ -451,7 +499,7 @@ of protection against unauthorized key removal.
      - Description
    * - Slot index
      - 1B
-     - ``0x01``-``0x03``
+     - ``0x01``-``0x05``
    * - PUK
      - 12B
      - PUK for authorization

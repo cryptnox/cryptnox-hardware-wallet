@@ -6,7 +6,8 @@ Card startup
 
 After receiving the ATR from the card, one must select the applet to use it. The applet AID is
 ``0xA0000010000112``. This command provides some basic info about the card applet and status
-flags.
+flags. The card can be accessed over the contact interface (ISO 7816) or the NFC contactless
+interface (ISO 14443).
 
 .. seealso::
 
@@ -58,6 +59,11 @@ The parameters sent are encrypted and the command payload is:
 
    PubKey | IV | EncryptedParams
 
+During initialization, three independent key derivation trees are prepared for ``secp256k1``,
+``secp256r1``, and ``Ed25519`` (EdDSA). Each tree maintains its own seed and derivation hierarchy,
+following ``BIP32`` (for ``secp256k1``), ``SLIP10`` (for ``secp256r1``), and ``SLIP10`` (for
+``Ed25519``).
+
 .. seealso::
 
    :ref:`cmd-init` command for the full APDU specification.
@@ -96,7 +102,8 @@ On top of this 12 characters secret, the reset is also secured by the user pairi
 (if secret). That means that resetting a card requires, on top of the PUK, to know the pairing
 key to send the command encrypted. Still, the PUK can act as a pairing key on its own.
 
-The reset command erases everything in the card, and makes the card as it was before the
+The reset command erases everything in the card, including all three key derivation trees
+(``secp256k1``, ``secp256r1``, and ``Ed25519``), and makes the card as it was before the
 initialization.
 
 .. important::

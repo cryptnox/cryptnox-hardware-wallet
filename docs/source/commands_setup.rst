@@ -60,7 +60,7 @@ the card's current state and capabilities before proceeding with further operati
      - ``'B'`` = Basic
    * - Applet version
      - 3B
-     - Major.Middle.Minor (e.g. ``0x01 0x06 0x00`` = v1.6.0)
+     - Major.Middle.Minor (e.g. ``0x02 0x00 0x00`` = v2.0.0)
    * - Status flags
      - 2B
      - Big-endian short, see below
@@ -79,6 +79,8 @@ the card's current state and capabilities before proceeding with further operati
 
    * - Bit
      - Meaning
+   * - 7
+     - Reset is disabled
    * - 6
      - Initialized
    * - 5
@@ -106,6 +108,10 @@ the card's current state and capabilities before proceeding with further operati
      - User Public Key #2 (RSA 2048) active
    * - 2
      - User Public Key #3 (FIDO2) active
+   * - 4
+     - User Public Key #4 (ECDSA 256r1) active
+   * - 5
+     - User Public Key #5 (ECDSA 256r1) active
 
 The custom bytes can be used to provide personal hints about how to authenticate with the card,
 or what's stored inside the card. Note that whoever has the card can freely and easily read

@@ -3,7 +3,7 @@ Seed management
 
 The applet manages a 256-bit master secret called the "seed". This is the ``BIP32`` master seed,
 and can be externally computed from a mnemonic to a binary seed using ``BIP39``. The key pairs
-used for ECDSA are then computationally derived from this seed using ``SLIP10``/``BIP32``
+used for ECDSA and EdDSA are then computationally derived from this seed using ``SLIP10``/``BIP32``
 derivation scheme.
 
 Once the card has a seed or a master key, it is not possible to erase or change it, except by
@@ -76,6 +76,17 @@ is loaded in the card, this card now behaves like the one it was backed up from.
 
    - :ref:`cmd-load-key` command for the recovery APDU specification
    - :doc:`key_derivation` for derivation path management after recovery
+
+Key hierarchies
+---------------
+
+From a single seed, the card derives three independent key hierarchies:
+
+- **secp256k1** -- Bitcoin, Ethereum, and other blockchain ecosystems
+- **secp256r1** -- Enterprise security, TLS, FIDO2/WebAuthn
+- **EdDSA (Ed25519)** -- Modern cryptographic signatures (Solana, nacl, etc.)
+
+All three hierarchies are rooted in the same master seed but are otherwise fully independent.
 
 Key source types
 ----------------

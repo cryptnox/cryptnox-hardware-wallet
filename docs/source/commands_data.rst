@@ -347,10 +347,14 @@ a public key at a specific path for address generation without affecting the sig
      - Current key k1
    * - ``0x10``
      - Current key r1
+   * - ``0x20``
+     - Current key Ed25519
    * - ``0x01``
      - Derive with k1 (OR with bits 7-6 for derivation source)
    * - ``0x11``
      - Derive with r1 (OR with bits 7-6 for derivation source)
+   * - ``0x21``
+     - Derive with Ed25519 (OR with bits 7-6 for derivation source + derive flag)
 
 When using derivation (P1 LSB = 1), the source key can be selected by OR'ing P1 with the
 same derivation source flags as the ``DERIVE KEY`` command:
@@ -374,7 +378,7 @@ same derivation source flags as the ``DERIVE KEY`` command:
    * - ``0x02``
      - Read extended public key (BIP32 xpub, P1 must be ``0x00``)
 
-**Request Data --- P1=0x01/0x11 (derive, plaintext)**
+**Request Data --- P1=0x01/0x11/0x21 (derive, plaintext)**
 
 .. list-table::
    :header-rows: 1
@@ -387,7 +391,7 @@ same derivation source flags as the ``DERIVE KEY`` command:
      - n x 4B
      - 32-bit big-endian integers (1 to 8 levels)
 
-When P1=0x00/0x10 with P2=0x00 or P2=0x01, no data is required.
+When P1=0x00/0x10/0x20 with P2=0x00 or P2=0x01, no data is required.
 
 **Response Data --- P2=0x00 (path)**
 

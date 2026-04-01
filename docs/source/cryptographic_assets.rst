@@ -232,8 +232,10 @@ Master seed
      - Secure Element (non-exportable)
    * - **Description**
      - The 256-bit master seed (BIP32 / SLIP-0010) -- the root of all derived
-       blockchain keys. This is the ultimate cryptographic asset: it cannot be read or
-       exported, only destroyed via ``RESET`` with PUK.
+       blockchain keys. From this single seed, three independent key hierarchies are
+       derived: secp256k1 (Bitcoin, Ethereum), secp256r1 (FIDO, secure messaging),
+       and EdDSA (Ed25519, Solana, Cardano). This is the ultimate cryptographic asset:
+       it cannot be read or exported, only destroyed via ``RESET`` with PUK.
    * - **Notes**
      - Generated on-card (``GENERATE KEY``) or loaded (``LOAD KEY`` with
        ``P1=0x03``). Once set, it cannot be changed except by ``RESET`` with PUK.

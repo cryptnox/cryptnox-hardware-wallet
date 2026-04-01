@@ -5,6 +5,10 @@ The card applet can sign any 256-bit hash provided, using ECDSA with ``secp256k1
 ``secp256r1`` EC parameters. Most blockchain systems use ``SHA2-256`` to hash the message, but
 this card applet is agnostic: the signature is performed on a hash provided by the user.
 
+The card also supports EdDSA signatures using ``Ed25519`` curve parameters. Unlike ECDSA, the
+EdDSA input is the data itself (not a hash), prepended with 2 bytes of length in big endian.
+The data length is limited to 1200 bytes (1202 bytes with the length header).
+
 The derivation of the key pair node can also be done using the signature command (relative or
 absolute). The card derives just before signing; this cannot be used to sign with a different key,
 and this cannot change the current stored key.
@@ -32,6 +36,31 @@ Signature types
    * - ``0x02``
      - Schnorr (``BIP340``)
      - Bitcoin Schnorr, ``secp256k1`` only, 64-byte output
+   * - ``0x03``
+     - EdDSA (``Ed25519``)
+     - EdDSA signature, ``Ed25519`` only, 64-byte output as per ``RFC 8032``
+
+Key selection
+-------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 90
+
+   * - P1
+     - Description
+   * - ``0x00``
+     - Current ECDSA key
+   * - ``0x01``
+     - Derive and sign (ECDSA, with derive flag)
+   * - ``0x02``
+     - Derive and sign (ECDSA, absolute path)
+   * - ``0x03``
+     - Pinless path (ECDSA)
+   * - ``0x20``
+     - Current EdDSA key
+   * - ``0x21``
+     - Derive and sign (EdDSA, with derive flag)
 
 Ephemeral nonce
 ---------------
@@ -66,6 +95,17 @@ Returns 64 bytes ``R|S`` = 2 x 256 bits MSB first, as per ``BIP340`` standard.
 
 The 32-byte nonce rand value is directly provided by a random source in the ``JCOP4`` platform.
 Works only with ``secp256k1`` keys (current, derive, or pinless).
+
+EdDSA output format
+--------------------
+
+Returns 64 bytes ``R|S`` = 2 x 32 bytes, as per ``RFC 8032`` standard.
+
+The input data is the raw message (not a hash), prepended with 2 bytes indicating the data
+length in big endian format. The maximum data length is 1200 bytes (1202 bytes including the
+2-byte length header).
+
+Works only with ``Ed25519`` keys (current or derive).
 
 Pinless signing
 ---------------

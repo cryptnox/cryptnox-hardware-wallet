@@ -2,8 +2,8 @@ Key derivation
 ==============
 
 The card applet is fully compliant with ``BIP32`` (``secp256k1`` curve) and ``SLIP10``
-(``secp256r1`` curve), except the maximum depth of derivation from the master key is
-**8 levels**.
+(``secp256r1`` and ``Ed25519`` curves), except the maximum depth of derivation from the master
+key is **8 levels**.
 
 The card stores the present key pair (and its parent), used for signature. This can be changed
 using the ``DERIVE KEY`` command, giving a relative path (from the present or parent key pair),
@@ -14,8 +14,8 @@ or an absolute path (from the master key pair).
    :doc:`seed_management` for how the master seed is generated or loaded before derivation
    can be used.
 
-Dual curve support
-------------------
+Triple curve support
+--------------------
 
 The card can derive with:
 
@@ -32,10 +32,13 @@ The card can derive with:
    * - ``secp256r1``
      - ``SLIP10``
      - Enterprise security, TLS, FIDO2/WebAuthn
+   * - ``Ed25519``
+     - ``SLIP10``
+     - Modern cryptographic signatures (Solana, nacl, etc.)
 
-A flag in ``DERIVE KEY``, ``GET PUBKEY``, or ``SIGN`` is used to select one or the other curve.
-There are 2 separate key trees in the card, one for ``secp256r1`` and one for ``secp256k1``.
-They are separated, only linked from the same seed.
+A flag in ``DERIVE KEY``, ``GET PUBKEY``, or ``SIGN`` is used to select one of the three curves.
+There are 3 separate key trees in the card, one for ``secp256k1``, one for ``secp256r1``, and
+one for ``Ed25519``. They are separated, only linked from the same seed.
 
 Derivation sources
 ------------------

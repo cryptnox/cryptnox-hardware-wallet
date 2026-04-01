@@ -483,6 +483,8 @@ cached so you cannot use this to go back in the hierarchy. If no valid parent ke
      - Description
    * - bit 4
      - ``0`` = secp256k1; ``1`` = secp256r1
+   * - bit 5
+     - ``0`` = ECDSA curve; ``1`` = EdDSA (Ed25519)
    * - bits 7-6
      - ``00`` = from master; ``01`` = from parent; ``10`` = from current
 
@@ -680,8 +682,11 @@ SIGN
 loaded.
 
 The card applet can sign any 256-bit hash provided, using ECDSA with 256k1 or 256r1 EC
-parameters. Most blockchain systems use SHA2-256 to hash the message, but this card applet
-is agnostic from this, since the signature is performed on a hash provided by the user.
+parameters. It also supports EdDSA (Ed25519) signatures on raw data, and BIP340 Schnorr
+signatures. Most blockchain systems use SHA2-256 to hash the message, but this card applet
+is agnostic from this for ECDSA, since the signature is performed on a hash provided by the
+user. For EdDSA, the card signs raw data directly (the EdDSA algorithm performs its own
+internal hashing per RFC 8032).
 
 The ephemeral ``k`` used in the ECDSA and Schnorr is random and different for each signature.
 For ECDSA, this is automatically performed by the Signature function of the underlying JCOP4
@@ -707,10 +712,14 @@ than n/2).
      - Current key (k1)
    * - ``0x10``
      - Current key (r1)
+   * - ``0x20``
+     - Current key (Ed25519)
    * - ``0x01``
      - Derive + sign with k1 (OR with bits 7-6 for source)
    * - ``0x11``
      - Derive + sign with r1 (OR with bits 7-6 for source)
+   * - ``0x21``
+     - Derive + sign with Ed25519 (OR with bits 7-6 for source)
    * - ``0x03``
      - Pinless path (k1 only, no SC required)
 
@@ -734,6 +743,8 @@ process is performed using the PIN-less derivation path previously defined using
      - ECDSA with EOSIO canonical filter
    * - ``0x02``
      - Bitcoin Schnorr BIP340 (k1 only)
+   * - ``0x03``
+     - EdDSA (Ed25519, RFC 8032)
 
 **Request Data — P1=0x00/0x10 (current key, plaintext)**
 
@@ -763,6 +774,47 @@ process is performed using the PIN-less derivation path previously defined using
    * - Hash
      - 32B
      - 256-bit hash to sign
+   * - Path elements
+     - n × 4B
+     - Derivation path (32-bit big-endian integers)
+   * - PIN
+     - 9B
+     - Right-padded with ``0x00`` (omit if user auth)
+
+**Request Data — P1=0x20 (current Ed key, plaintext)**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - Data length
+     - 2B
+     - Big-endian length of the raw data to sign
+   * - Data
+     - 1-1200B
+     - Raw data to sign (max 1200 bytes, not a hash)
+   * - PIN
+     - 9B
+     - Right-padded with ``0x00`` (omit if user auth)
+
+**Request Data — P1=0x21 (derive + sign Ed, plaintext)**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - Data length
+     - 2B
+     - Big-endian length of the raw data to sign
+   * - Data
+     - 1-1200B
+     - Raw data to sign (max 1200 bytes, not a hash)
    * - Path elements
      - n × 4B
      - Derivation path (32-bit big-endian integers)
@@ -820,6 +872,26 @@ is provided by a random source in the JCOP4 platform. Works only with k1 keys.
    * - S
      - 32B
      - Schnorr S component (MSB first)
+
+**Response Data — EdDSA (P2=0x03)**
+
+Returns 64 bytes ``R|S`` as per RFC 8032 (Ed25519). The signature is computed over the raw
+data provided in the request (not a hash). The EdDSA algorithm performs its own internal
+SHA-512 hashing as specified by the standard.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - R
+     - 32B
+     - EdDSA R component per RFC 8032
+   * - S
+     - 32B
+     - EdDSA S component per RFC 8032
 
 **PIN behavior**: The PIN must be with a 9 numbers fixed length, right-filled with ``0x00``.
 If there was no valid user auth or not in pinless mode, the data length expected is counted
@@ -1013,6 +1085,138 @@ PIN is validated.
      - Wrong PIN
    * - ``0x6982``
      - Data too large (outside secure channel)
+
+----
+
+.. _cmd-generate-rsa-seed-wrap-key:
+
+GENERATE RSA SEED WRAP KEY
+--------------------------
+
+**Request APDU** (encrypted)
+
+.. list-table::
+   :header-rows: 1
+   :widths: 12 12 12 12 12 40
+
+   * - CLA
+     - INS
+     - P1
+     - P2
+     - LC
+     - Data
+   * - ``0x80``
+     - ``0xF9``
+     - ``0x00``
+     - ``0x00``
+     - var
+     - MAC | Encrypted data
+
+**Preconditions**: Secure Channel must be opened.
+
+This command generates an RSA key pair on the card that can be used to wrap (encrypt) the
+card's seed for secure export. The RSA key size is specified in the request data.
+
+**Request Data (plaintext)**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - RSA key size
+     - 2B
+     - Big-endian RSA key size in bits (e.g. ``0x0800`` = 2048)
+
+**Status Words**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - SW
+     - Description
+   * - ``0x9000``
+     - Success
+   * - ``0x6A80``
+     - Invalid key size
+
+----
+
+.. _cmd-sign-public:
+
+SIGN PUBLIC
+-----------
+
+**Request APDU** (encrypted)
+
+.. list-table::
+   :header-rows: 1
+   :widths: 12 12 12 12 12 40
+
+   * - CLA
+     - INS
+     - P1
+     - P2
+     - LC
+     - Data
+   * - ``0x80``
+     - ``0xC6``
+     - Key type
+     - ``0x00``
+     - —
+     - None (or MAC only)
+
+**Preconditions**: Secure Channel opened, PIN or challenge-response validated, seed loaded.
+
+This command certifies (signs) the current blockchain public key using the card's static
+private key. This allows external parties to verify that a given blockchain public key
+genuinely belongs to this card, by checking the signature against the card's certificate.
+
+**P1 values**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 85
+
+   * - P1
+     - Description
+   * - ``0x00``
+     - Current key (k1)
+   * - ``0x10``
+     - Current key (r1)
+   * - ``0x20``
+     - Current key (Ed25519)
+
+**Response Data**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - Signature
+     - 70-72B
+     - ASN.1 DER ECDSA signature over the current blockchain public key, signed with the card's static private key
+
+**Status Words**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - SW
+     - Description
+   * - ``0x9000``
+     - Success
+   * - ``0x6985``
+     - No key loaded or PIN not verified
+   * - ``0x6A86``
+     - Invalid P1
 
 ----
 

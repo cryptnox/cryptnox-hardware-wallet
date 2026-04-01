@@ -20,9 +20,12 @@ Retry behavior
    * - Event
      - Behavior
    * - Per-session tries
-     - The PIN can be tested **3 times** before a disconnection of the card is required.
+     - The PIN can be tested **3 times** before a lockout is triggered.
+   * - After lockout
+     - Three failed attempts trigger a lockout requiring a power cycle of the card.
    * - After power cycle
-     - 3 more tries are available before the PIN state is locked.
+     - 3 more tries are available. Another three incorrect attempts cause a permanent lock
+       until the PUK is used.
    * - PIN locked
      - Requires unlocking with the PUK via the ``UNBLOCK PIN`` command.
    * - ``0x63C0`` response
@@ -41,10 +44,10 @@ until the card powers off or a signature is performed.
 User key authentication
 -----------------------
 
-Another way to authenticate the user is with an ``EC256r1`` or ``RSA`` key pair. There is a
-random challenge to be signed for PIN-like behavior. The public key is registered in the card,
-and the "blockchain" EC signature can be allowed with a signature from this user key: hash to be
-signed with the card must be signed with the user key.
+Another way to authenticate the user is with an ``EC256r1``, ``RSA``, or ``EdDSA`` key pair.
+There is a random challenge to be signed for PIN-like behavior. The public key is registered in
+the card, and the "blockchain" EC signature can be allowed with a signature from this user key:
+hash to be signed with the card must be signed with the user key.
 
 The goal of this function is to use the Cryptnox Hardware Wallet card (to make transactions) in conjunction
 with a key storage such as iOS Secure Enclave Touch ID or a PC TPM, instead of using the PIN.
@@ -76,6 +79,12 @@ Key slots
    * - 3
      - FIDO
      - ``CredIDLength(1B) | CredID(up to 64B) | ECpubkey(65B)``
+   * - 4
+     - ``EC 256r1``
+     - X9.62 uncompressed (65 bytes: ``04 | X | Y``)
+   * - 5
+     - ``EC 256r1``
+     - X9.62 uncompressed (65 bytes: ``04 | X | Y``)
 
 Authentication modes
 ^^^^^^^^^^^^^^^^^^^^
@@ -133,7 +142,7 @@ by user authentication (public keys registered).
 
 .. important::
 
-   When PIN auth is disabled, only user key authentication (slots 1--3) can authorize operations.
+   When PIN auth is disabled, only user key authentication (slots 1--5) can authorize operations.
    Make sure at least one user key is registered before disabling PIN auth.
 
 .. seealso::
