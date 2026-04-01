@@ -93,13 +93,14 @@ th {
 
 /* Version selector */
 #version-selector-container {
-    display: none;
+    margin-bottom: .4em;
     padding: 4px 10px 10px;
 }
 
 .version-dropdown {
     position: relative;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .version-dropdown-btn {
@@ -112,31 +113,30 @@ th {
     font-size: 14px;
     cursor: pointer;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    text-align: left;
+    text-align: center;
+    position: relative;
 }
 
 .version-dropdown-btn:hover {
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .version-caret {
     font-size: 10px;
-    margin-left: 6px;
+    position: absolute;
+    right: 10px;
 }
 
 .version-dropdown-list {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    position: fixed;
     background-color: #0d1a26;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     list-style: none;
-    margin: 2px 0 0;
+    margin: 0;
     padding: 0;
     z-index: 9999;
 }
@@ -147,18 +147,21 @@ th {
 
 .version-option {
     padding: 7px 10px;
-    color: #fcfcfc;
+    color: #d0d8e0;
     cursor: pointer;
     font-size: 14px;
+    text-align: center;
 }
 
 .version-option:hover {
-    background-color: #1e3348;
+    background-color: #fcb770;
+    color: #101f2e;
 }
 
 .version-option.selected {
     font-weight: bold;
-    background-color: #162738;
+    color: #fcfcfc;
+    background-color: rgba(252, 183, 112, 0.15);
 }
 
 /* Hide old rst-versions flyout */
