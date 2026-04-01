@@ -97,20 +97,68 @@ th {
     padding: 4px 10px 10px;
 }
 
-#version-select {
+.version-dropdown {
+    position: relative;
     width: 100%;
-    padding: 5px 8px;
-    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.version-dropdown-btn {
+    width: 100%;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     color: #fcfcfc;
     font-size: 14px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
 }
 
-#version-select option {
-    background-color: #1a2d40;
+.version-dropdown-btn:hover {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.version-caret {
+    font-size: 10px;
+    margin-left: 6px;
+}
+
+.version-dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #0d1a26;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+    z-index: 9999;
+}
+
+.version-dropdown-list.open {
+    display: block;
+}
+
+.version-option {
+    padding: 7px 10px;
     color: #fcfcfc;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.version-option:hover {
+    background-color: #1e3348;
+}
+
+.version-option.selected {
+    font-weight: bold;
+    background-color: #162738;
 }
 
 /* Hide old rst-versions flyout */

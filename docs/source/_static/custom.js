@@ -8,10 +8,23 @@ document.addEventListener('DOMContentLoaded', function () {
         searchArea.insertBefore(container, searchForm);
         container.style.display = 'block';
     }
-    var select = document.getElementById('version-select');
-    if (select) {
-        select.addEventListener('change', function () {
-            if (this.value) window.location.href = this.value;
+    var btn = document.getElementById('version-dropdown-btn');
+    var list = document.getElementById('version-dropdown-list');
+    if (btn && list) {
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var open = list.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+        });
+        list.querySelectorAll('.version-option').forEach(function (option) {
+            option.addEventListener('click', function () {
+                var url = this.getAttribute('data-url');
+                if (url) window.location.href = url;
+            });
+        });
+        document.addEventListener('click', function () {
+            list.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
         });
     }
 });
