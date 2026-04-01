@@ -90,3 +90,30 @@ th {
     color: #ffffff !important;
     background: #fcb770 !important;
 }
+
+/* Version selector */
+#version-selector-container {
+    display: none;
+    padding: 4px 10px 10px;
+}
+
+#version-select {
+    width: 100%;
+    padding: 5px 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fcfcfc;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#version-select option {
+    background-color: #1a2d40;
+    color: #fcfcfc;
+}
+
+/* Hide old rst-versions flyout */
+.rst-versions {
+    display: none !important;
+}
