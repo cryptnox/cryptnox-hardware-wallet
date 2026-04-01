@@ -1,3 +1,21 @@
+// Version selector — move into sidebar below logo, above search
+document.addEventListener('DOMContentLoaded', function () {
+    var container = document.getElementById('version-selector-container');
+    if (!container) return;
+    var searchArea = document.querySelector('.wy-side-nav-search');
+    var searchForm = searchArea && searchArea.querySelector('[role="search"]');
+    if (searchArea && searchForm) {
+        searchArea.insertBefore(container, searchForm);
+        container.style.display = 'block';
+    }
+    var select = document.getElementById('version-select');
+    if (select) {
+        select.addEventListener('change', function () {
+            if (this.value) window.location.href = this.value;
+        });
+    }
+});
+
 // Add smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for internal links
