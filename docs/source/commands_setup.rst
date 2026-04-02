@@ -60,7 +60,7 @@ the card's current state and capabilities before proceeding with further operati
      - ``'B'`` = Basic
    * - Applet version
      - 3B
-     - Major.Middle.Minor (e.g. ``0x02 0x00 0x00`` = v2.0)
+     - Major.Middle.Minor (e.g. ``0x02 0x00 0x00`` = v2.0.0)
    * - Status flags
      - 2B
      - Big-endian short, see below
