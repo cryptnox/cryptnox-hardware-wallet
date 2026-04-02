@@ -1,7 +1,7 @@
 Cryptnox Hardware Wallet — API Reference
 ============================================
 
-Basic Wallet Card v2.0.0 with user auth by ECDSA 256r1, EdDSA, RSA2048 and FIDO auth.
+Cryptnox Hardware Wallet v2.0 with user auth by ECDSA 256r1, EdDSA, RSA2048 and FIDO auth.
 
 This JavaCard Open Platform 3 applet provides basic HSM-like "cryptoki" capabilities for
 managing crypto-currencies private key secure storage and signature for any blockchain using
