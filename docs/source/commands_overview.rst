@@ -146,11 +146,6 @@ Key management
      - ✓
      - ✓
      - ✗
-   * - Generate RSA Seed Wrap Key
-     - Generates RSA keypair for seed wrapping.
-     - ✓
-     - ✗
-     - ✗
    * - Set Pinless Path
      - Configures EIP-1581 pinless derivation path.
      - ✓
@@ -189,13 +184,8 @@ Signing & decryption
      - Secure Channel
      - PIN / User Key
      - PUK
-   * - Sign Public
-     - Certifies the current blockchain public key.
-     - ✓
-     - ✓
-     - ✗
    * - Sign
-     - Signs hash (ECDSA / Schnorr) or data (EdDSA).
+     - Signs hash (ECDSA / Schnorr).
      - ✓ Except pinless
      - ✓ Except pinless
      - ✗
