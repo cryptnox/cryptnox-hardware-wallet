@@ -2,15 +2,15 @@
 <div id="version-selector-container">
   <div class="version-dropdown">
     <button class="version-dropdown-btn" id="version-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
-      <span>Applet version {{ current_version.name }}</span>
+      <span>Applet version {{ current_version.name[1:].split('.')[:2]|join('.') }}</span>
       <span class="version-caret">&#9660;</span>
     </button>
     <ul class="version-dropdown-list" id="version-dropdown-list" role="listbox">
       {% for item in versions.branches %}
-      <li role="option" class="version-option{% if item.name == current_version.name %} selected{% endif %}" data-url="{{ item.url }}">Applet version {{ item.name }}</li>
+      <li role="option" class="version-option{% if item.name == current_version.name %} selected{% endif %}" data-url="{{ item.url }}">Applet version {{ item.name[1:].split('.')[:2]|join('.') }}</li>
       {% endfor %}
       {% for item in versions.tags %}
-      <li role="option" class="version-option{% if item.name == current_version.name %} selected{% endif %}" data-url="{{ item.url }}">Applet version {{ item.name }}</li>
+      <li role="option" class="version-option{% if item.name == current_version.name %} selected{% endif %}" data-url="{{ item.url }}">Applet version {{ item.name[1:].split('.')[:2]|join('.') }}</li>
       {% endfor %}
     </ul>
   </div>
