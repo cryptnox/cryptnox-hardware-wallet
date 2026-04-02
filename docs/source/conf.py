@@ -22,7 +22,7 @@ html_baseurl = 'https://docs.cryptnox.com/cryptnox-hardware-wallet/'
 html_title = 'Cryptnox Hardware Wallet Docs'
 
 html_meta = {
-    'description': 'Cryptnox Hardware Wallet v2.0.0 — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.',
+    'description': 'Cryptnox Hardware Wallet — APDU command reference, secure channel protocol, key derivation, signing, and authentication for JavaCard-based crypto wallet cards.',
     'keywords': 'Cryptnox, hardware wallet, smartcard, JavaCard, APDU, secure channel, BIP32, SLIP10, ECDSA, EdDSA, Schnorr, key derivation, cryptocurrency, NFC, cold storage',
     'author': 'Cryptnox',
     'robots': 'index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
