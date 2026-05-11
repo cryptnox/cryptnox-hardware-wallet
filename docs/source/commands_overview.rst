@@ -205,6 +205,34 @@ Signing & decryption
      - ✓
      - ✗
 
+MuSig2 (BIP-327)
+----------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 35 13 13 14
+
+   * - Command
+     - Description
+     - Secure Channel
+     - PIN / User Key
+     - PUK
+   * - Nonce Gen
+     - Generates MuSig2 secret nonce pair, returns ``(R1, R2)``.
+     - ✓
+     - ✓ Except pinless
+     - ✗
+   * - Load Cosigner Key
+     - Feeds one cosigner pubkey into the KeyAgg list hash.
+     - ✓
+     - ✓ Except pinless
+     - ✗
+   * - Partial Sign
+     - Returns the card's BIP-327 partial signature ``s_i``.
+     - ✓
+     - ✓ Except pinless
+     - ✗
+
 Data & history
 --------------
 
@@ -260,5 +288,5 @@ Administration
 
    For detailed APDU specifications, parameters, and response codes of each command,
    refer to the dedicated command pages:
-   :doc:`commands_setup`, :doc:`commands_crypto`, :doc:`commands_data`, and
-   :doc:`commands_user_keys`.
+   :doc:`commands_setup`, :doc:`commands_crypto`, :doc:`commands_data`,
+   :doc:`commands_user_keys`, and :doc:`commands_musig2`.

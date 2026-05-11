@@ -309,6 +309,12 @@ This challenge must then be signed by the user and submitted with P1=0x02.
      - 32B
      - Random 256-bit nonce
 
+.. note::
+
+   An active challenge survives an applet deselect. The host may disconnect the card
+   between the request (P1=1) and the response (P1=2), then re-open a Secure Channel
+   before submitting the response.
+
 **P1=0x02 --- Challenge Response**
 
 The user submits the signed challenge to prove they hold the private key. The hash is not included
@@ -329,6 +335,23 @@ in the data because the card uses the challenge it generated internally.
      - Signature of the challenge (hash is provided by card internally)
 
 On success (response = ``0x01``), this unlocks commands requiring PIN (except ``SIGN``).
+
+.. note::
+
+   The challenge is strictly single-use. Each ``P1=0x02`` consumes the active nonce regardless
+   of whether the signature verifies (``response = 0x01``) or not (``response = 0x00``). Replaying
+   the same signature, or retrying a different one against the same nonce, is rejected with
+   ``0x6985``. A new challenge must be requested via P1=0x01.
+
+.. important::
+
+   While a challenge is active, only the following commands may be issued without
+   invalidating it: Get Manufacturer Certificate (``0xF7``), Get Card Certificate (``0xF8``),
+   Open Secure Channel (``0x10``), Mutually Authenticate (``0x11``), and the response itself
+   (this command with P1=0x02). These are the commands required to re-open a Secure Channel
+   after a deselect. Any other APDU (``VERIFY PIN``, ``DERIVE KEY``, ``SIGN``, …) resets the
+   auth FSM to IDLE before being processed, so a subsequent ``P1=0x02`` is rejected with
+   ``0x6985``.
 
 **P1P2=0x0301 --- Read FIDO Credential ID**
 
@@ -436,8 +459,9 @@ The FIDO slot is limited to 3 hashes (instead of 4) when using the hash-list mod
 .. note::
 
    A return value of ``0x00`` with status ``0x9000`` means the signature was not properly verified:
-   either the signature is invalid or the user key for this slot was not initialized. After a
-   failed challenge attempt, a new challenge must be requested (P1=1) before retrying (P1=2).
+   either the signature is invalid or the user key for this slot was not initialized. After any
+   ``P1=2`` attempt (failed or successful), a new challenge must be requested via ``P1=1`` before
+   the next ``P1=2``; the challenge is single-use.
 
 **Status Words**
 
@@ -452,8 +476,8 @@ The FIDO slot is limited to 3 hashes (instead of 4) when using the hash-list mod
    * - ``0x6A80``
      - Invalid slot index or incorrect data
    * - ``0x6985``
-     - FIDO key not registered (CredID read), or P1=2 sent before P1=1, or challenge
-       expired (power cycle/deselect)
+     - FIDO key not registered (CredID read), ``P1=2`` sent without an active challenge
+       (no prior ``P1=1``, already consumed, or invalidated by a non-allowlisted APDU)
 
 ----
 
