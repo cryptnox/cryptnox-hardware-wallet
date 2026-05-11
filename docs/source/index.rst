@@ -38,6 +38,7 @@ This secures the dual generation process.
    commands_crypto
    commands_data
    commands_user_keys
+   commands_musig2
    status_codes
    cryptographic_assets
    license

@@ -67,7 +67,7 @@ PIN retry behavior
      - Behavior
    * - Per-session (transient)
      - 3 tries per power cycle. After 3 failures, returns ``0x63C0`` until power cycle.
-   * - Persistent (``OwnerPIN``)
+   * - Persistent
      - 6 total tries across sessions. Depleted = PIN blocked, requires PUK to unblock.
 
 .. seealso::
