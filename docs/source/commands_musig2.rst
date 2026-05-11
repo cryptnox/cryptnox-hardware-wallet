@@ -160,6 +160,9 @@ Feeds one cosigner public key (33-byte compressed) into the incremental KeyAgg l
 including the card's own key. The order must match the order the host uses to compute the
 aggregate public key ``Q``.
 
+A maximum of 32 cosigners can be loaded in a single session; the 33rd call is rejected with
+``0x6985``.
+
 While processing each key, the card compares it against its own stored ``pk`` snapshot. If a
 match is found, an internal flag is raised; ``PARTIAL SIGN`` later requires this flag to be
 set, mirroring the BIP-327 ``Sign`` algorithm's check ``pk in pubkeys``.
@@ -190,7 +193,8 @@ set, mirroring the BIP-327 ``Sign`` algorithm's check ``pk in pubkeys``.
    * - ``0x6700``
      - Data length is not 33 bytes
    * - ``0x6985``
-     - State is not NONCE_GENERATED or WAIT_COSIGNERS, or PIN / user-auth not performed
+     - State is not NONCE_GENERATED or WAIT_COSIGNERS, PIN / user-auth not performed, or
+       cosigner-count limit (32) reached
 
 ----
 
@@ -299,7 +303,7 @@ the state machine returns to IDLE regardless of the outcome.
    * - ``0x6985``
      - State is not WAIT_COSIGNERS, card's own key not in cosigner list, PIN/user-auth
        not performed, or BIP-327 internal check failed (``R`` at infinity, ``a_i == 0``,
-       ``pk != secnonce[64:97]``, etc.)
+       ``pk != secnonce[64:97]``, ``s >= n``, etc.)
    * - ``0x6F00``
      - Internal computation failure (operands out of range); secrets are zeroed on this path
 
