@@ -46,10 +46,10 @@ expected sequence are rejected with ``0x6985``.
      - First successful LOAD COSIGNER KEY
      - LOAD COSIGNER KEY (more), PARTIAL SIGN
 
-After an applet deselect between LOAD COSIGNER KEY and PARTIAL SIGN, the card auto-demotes
-back to NONCE_GENERATED so the host can resend the cosigner list. The secret nonces
-``k1, k2`` and the card's own public key snapshot survive the deselect, so NONCE GEN does
-not need to be re-issued.
+After a card disconnect between LOAD COSIGNER KEY and PARTIAL SIGN, the card auto-demotes
+back to NONCE_GENERATED so the host can resend the cosigner list. The active nonce pair
+``(k1, k2)`` and the binding to the card's signing key remain available across a disconnect,
+so NONCE GEN does not need to be re-issued.
 
 ----
 
@@ -81,9 +81,9 @@ NONCE GEN
 performed (or pinless path active).
 
 Generates the card's MuSig2 secret nonce pair ``(k1, k2)`` and returns the corresponding
-public points ``(R1, R2)``. Internally the card also stores the compressed form of its own
-public key ``pk = sk*G`` so that ``LOAD COSIGNER KEY`` can detect it in the cosigner list and
-so that ``PARTIAL SIGN`` can verify the signing key has not changed in between (BIP-327
+public points ``(R1, R2)``. The returned nonces are bound to the card's signing key
+``pk = sk*G``: ``LOAD COSIGNER KEY`` uses this binding to detect ``pk`` in the cosigner
+list, and ``PARTIAL SIGN`` verifies the signing key has not changed in between (BIP-327
 requires ``pk == secnonce[64:97]``).
 
 The secret nonces are derived per BIP-327 ``NonceGen``. Two successive ``NONCE GEN`` calls
@@ -107,11 +107,11 @@ always produce different nonce pairs.
 
 .. note::
 
-   An active nonce pair ``(k1, k2)`` survives an applet deselect. It is zeroed after
-   ``PARTIAL SIGN`` (successful or rejected), after a full reset, and at the start of any
-   new ``NONCE GEN`` call. The host is expected to use each nonce pair exactly once;
-   reusing nonces across two different messages leaks the private key by linear algebra.
-   The card enforces this by zeroing the nonces after each sign.
+   An active nonce pair ``(k1, k2)`` remains available across a card disconnect. It is
+   destroyed after ``PARTIAL SIGN`` (successful or rejected), after a full reset, and at
+   the start of any new ``NONCE GEN`` call. The host is expected to use each nonce pair
+   exactly once; reusing nonces across two different messages leaks the private key by
+   linear algebra. The card enforces this by destroying the nonces after each sign.
 
 **Status Words**
 
@@ -160,9 +160,12 @@ Feeds one cosigner public key (33-byte compressed) into the incremental KeyAgg l
 including the card's own key. The order must match the order the host uses to compute the
 aggregate public key ``Q``.
 
-While processing each key, the card compares it against its own stored ``pk`` snapshot. If a
-match is found, an internal flag is raised; ``PARTIAL SIGN`` later requires this flag to be
-set, mirroring the BIP-327 ``Sign`` algorithm's check ``pk in pubkeys``.
+A maximum of 32 cosigners can be loaded in a single session; the 33rd call is rejected with
+``0x6985``.
+
+While processing each key, the card compares it against its own signing key ``pk``. If a
+match is found, ``PARTIAL SIGN`` will be allowed to proceed, mirroring the BIP-327 ``Sign``
+algorithm's check ``pk in pubkeys``.
 
 **Request Data --- 33 bytes**
 
@@ -190,7 +193,8 @@ set, mirroring the BIP-327 ``Sign`` algorithm's check ``pk in pubkeys``.
    * - ``0x6700``
      - Data length is not 33 bytes
    * - ``0x6985``
-     - State is not NONCE_GENERATED or WAIT_COSIGNERS, or PIN / user-auth not performed
+     - State is not NONCE_GENERATED or WAIT_COSIGNERS, PIN / user-auth not performed, or
+       cosigner-count limit (32) reached
 
 ----
 
@@ -232,8 +236,13 @@ Computes and returns the card's partial signature ``s_i`` per BIP-327 ``Sign``:
    s_i = (k1 + b * k2 + e * a_i * sk) mod n
 
 The card never returns ``R``, ``e``, ``a_i`` or any other intermediate; only ``s_i``. After
-the call, the secret nonces ``k1, k2`` and the card's public key snapshot are zeroed, and
-the state machine returns to IDLE regardless of the outcome.
+the call, the active nonce pair ``(k1, k2)`` is destroyed and the state machine returns to
+IDLE regardless of the outcome; a new ``NONCE GEN`` is required for the next signature.
+
+Before returning ``s_i``, the card verifies the BIP-327 ``PartialSigVerifyInternal`` equation
+``s_i * G == Re* + e * a_i * g' * P`` on its own partial signature. If the equation does not
+hold, the call is rejected with ``0x6985`` and the signing session is terminated; the host
+must restart from a new ``NONCE GEN``.
 
 **Request Data --- 195 bytes**
 
@@ -279,9 +288,9 @@ the state machine returns to IDLE regardless of the outcome.
 
 .. important::
 
-   ``PARTIAL SIGN`` is single-use per ``NONCE GEN`` call. The nonces are zeroed before the
-   function returns and the state goes back to IDLE, so a second ``PARTIAL SIGN`` against
-   the same ``aggR1, aggR2`` is rejected. To sign another message, run a full
+   ``PARTIAL SIGN`` is single-use per ``NONCE GEN`` call. The nonces are destroyed before
+   the function returns and the state goes back to IDLE, so a second ``PARTIAL SIGN``
+   against the same ``aggR1, aggR2`` is rejected. To sign another message, run a full
    ``NONCE GEN`` → ``LOAD COSIGNER KEY`` (× N) → ``PARTIAL SIGN`` cycle.
 
 **Status Words**
@@ -299,9 +308,9 @@ the state machine returns to IDLE regardless of the outcome.
    * - ``0x6985``
      - State is not WAIT_COSIGNERS, card's own key not in cosigner list, PIN/user-auth
        not performed, or BIP-327 internal check failed (``R`` at infinity, ``a_i == 0``,
-       ``pk != secnonce[64:97]``, etc.)
+       ``pk != secnonce[64:97]``, ``s >= n``, etc.)
    * - ``0x6F00``
-     - Internal computation failure (operands out of range); secrets are zeroed on this path
+     - Internal computation failure (operands out of range); the signing session is terminated on this path
 
 ----
 
