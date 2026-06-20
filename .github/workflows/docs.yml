@@ -41,6 +41,18 @@ jobs:
       - name: Build all versions with sphinx-multiversion
         run: sphinx-multiversion docs/source _site
 
+      - name: Install LaTeX for PDF
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended tex-gyre
+
+      - name: Build PDF (pdflatex)
+        run: |
+          sphinx-build -M latexpdf docs/source docs/_build
+          cp docs/_build/latex/cryptnox-hardware-wallet.pdf _site/cryptnox-hardware-wallet.pdf
+
       - name: Add root redirect to latest version
         run: |
           LATEST=$(git tag -l 'v*' --sort=-version:refname | head -1)
