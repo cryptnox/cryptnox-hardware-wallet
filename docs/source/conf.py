@@ -88,6 +88,11 @@ latex_elements = {
     'printindex': '',  # drop the general Index from the PDF (kept in HTML)
     'fncychap': '',  # no fancy chapter rules; titlesec styles chapters instead
     'preamble': r'''
+% Symbols pdflatex can't render natively: map check/cross marks and drop emoji
+\usepackage{pifont}
+\DeclareUnicodeCharacter{2713}{\ding{51}}% check mark
+\DeclareUnicodeCharacter{2717}{\ding{55}}% ballot X
+\DeclareUnicodeCharacter{1F4C4}{}% page facing up
 % Left-align body text (ragged right instead of justified)
 \usepackage[document]{ragged2e}
 % Drop the "(continues on next page)" / "(continued from previous page)" labels (parens included) on code blocks
