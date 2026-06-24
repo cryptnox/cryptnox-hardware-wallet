@@ -165,9 +165,9 @@ latex_elements = {
 
 # -- sphinx-multiversion config ----------------------------------------------
 
-smv_branch_whitelist   = r'^v\d+\.\d+\.\d+$'
-smv_tag_whitelist      = r'^v\d+\.\d+\.\d+$'
+smv_branch_whitelist   = r'^v\d+\.\d+$'
+smv_tag_whitelist      = r'^v\d+\.\d+$'
 smv_remote_whitelist   = r'^origin$'
-smv_released_pattern   = r'^refs/(heads/v\d+\.\d+\.\d+|tags/v\d+\.\d+\.\d+)$'
+smv_released_pattern   = r'^refs/(heads/v\d+\.\d+|tags/v\d+\.\d+)$'
 smv_outputdir_format   = '{ref.name}'
 smv_prefer_remote_refs = False
