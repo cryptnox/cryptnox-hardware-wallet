@@ -1,5 +1,28 @@
 # Configuration file for the Sphinx documentation builder.
 
+# Derive the navy PDF cover logo from the white HTML SVG at build time, so only the
+# SVG is a committed source asset (needs cairosvg + Pillow, both in the docs requirements).
+import os as _os
+try:
+    import io as _io
+    import cairosvg
+    from PIL import Image as _Image
+except ImportError as _e:
+    raise RuntimeError(
+        "Docs build requires cairosvg and Pillow to generate the PDF cover logo; "
+        "install them (pip install cairosvg pillow)."
+    ) from _e
+_static = _os.path.join(_os.path.dirname(__file__), "_static")
+with open(_os.path.join(_static, "cryptnox-logo.svg"), encoding="utf-8") as _f:
+    _svg = _f.read()
+_png = cairosvg.svg2png(
+    bytestring=_svg.replace('fill="white"', 'fill="#101f2e"').encode(),
+    output_width=1200, output_height=226,
+)
+_Image.open(_io.BytesIO(_png)).save(
+    _os.path.join(_static, "cryptnox-logo-dark.png"), dpi=(400, 400)
+)
+
 # -- Project information -----------------------------------------------------
 
 project = 'Cryptnox Hardware Wallet'
