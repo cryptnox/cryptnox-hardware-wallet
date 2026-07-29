@@ -48,12 +48,21 @@ jobs:
             latexmk texlive-latex-recommended texlive-latex-extra \
             texlive-fonts-recommended tex-gyre
 
-      - name: Build PDF (pdflatex)
+      - name: Build a PDF per version (pdflatex)
+        # ponytail: version branches carry content only; the LaTeX/logo config lives on
+        # main and is applied to each of them with -c. Drop the -c once the branches
+        # have their own conf.py latex block.
         run: |
-          sphinx-build -M latexpdf docs/source docs/_build
-          cp docs/_build/latex/cryptnox-hardware-wallet.pdf _site/cryptnox-hardware-wallet.pdf
+          set -e
+          for VER in $(git branch -r --list 'origin/v[0-9]*' | sed 's|.*origin/||' | sort -V); do
+            git worktree add "../src-$VER" "origin/$VER"
+            RELEASE=$(sed -n "s/^release = '\(.*\)'/\1/p" "../src-$VER/docs/source/conf.py")
+            sphinx-build -M latexpdf "../src-$VER/docs/source" "../pdf-$VER" \
+              -c docs/source -D release="$RELEASE"
+            cp "../pdf-$VER/latex/cryptnox-hardware-wallet.pdf" "_site/$VER/cryptnox-hardware-wallet.pdf"
+          done
 
-      - name: Add root redirect to latest version
+      - name: Add root redirect and PDF for the latest version
         run: |
           LATEST=$(git tag -l 'v*' --sort=-version:refname | head -1)
           if [ -z "$LATEST" ]; then
@@ -61,6 +70,8 @@ jobs:
           fi
           if [ -z "$LATEST" ]; then LATEST="main"; fi
           echo "<meta http-equiv=\"refresh\" content=\"0; url=./${LATEST}/\">" > _site/index.html
+          # keep the unversioned PDF URL alive, pointing at the latest version
+          cp "_site/$LATEST/cryptnox-hardware-wallet.pdf" _site/cryptnox-hardware-wallet.pdf
 
       - uses: actions/upload-pages-artifact@v3
         with:
