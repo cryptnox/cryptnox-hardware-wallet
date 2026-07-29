@@ -59,7 +59,7 @@ jobs:
             RELEASE=$(sed -n "s/^release = '\(.*\)'/\1/p" "../src-$VER/docs/source/conf.py")
             sphinx-build -M latexpdf "../src-$VER/docs/source" "../pdf-$VER" \
               -c docs/source -D release="$RELEASE"
-            cp "../pdf-$VER/latex/cryptnox-hardware-wallet.pdf" "_site/$VER/cryptnox-hardware-wallet.pdf"
+            cp "../pdf-$VER/latex/cryptnox-hardware-wallet.pdf" "_site/$VER/cryptnox-hardware-wallet-$VER.pdf"
           done
 
       - name: Add root redirect and PDF for the latest version
@@ -71,7 +71,7 @@ jobs:
           if [ -z "$LATEST" ]; then LATEST="main"; fi
           echo "<meta http-equiv=\"refresh\" content=\"0; url=./${LATEST}/\">" > _site/index.html
           # keep the unversioned PDF URL alive, pointing at the latest version
-          cp "_site/$LATEST/cryptnox-hardware-wallet.pdf" _site/cryptnox-hardware-wallet.pdf
+          cp "_site/$LATEST/cryptnox-hardware-wallet-$LATEST.pdf" _site/cryptnox-hardware-wallet.pdf
 
       - uses: actions/upload-pages-artifact@v3
         with:
