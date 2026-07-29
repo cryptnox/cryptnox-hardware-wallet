@@ -122,6 +122,9 @@ latex_elements = {
 \AtBeginDocument{\renewcommand*\sphinxstylecodecontinued[1]{}\renewcommand*\sphinxstylecodecontinues[1]{}}
 % Whole document in the sans font (TeX Gyre Heros)
 \renewcommand{\familydefault}{\sfdefault}
+% Literals, tables and code blocks in DejaVu Sans Mono instead of Sphinx's default txtt;
+% scaled down since DejaVu runs large next to Heros
+\usepackage[scaled=0.82]{DejaVuSansMono}
 % Sans-serif TOC entries
 \AtBeginDocument{\addtocontents{toc}{\protect\sffamily}}
 % Left-aligned chapter headings
