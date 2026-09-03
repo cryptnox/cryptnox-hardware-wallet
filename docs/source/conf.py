@@ -9,7 +9,7 @@ release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 
-extensions = ['sphinx_multiversion']
+extensions = ['sphinx_multiversion', 'sphinx_sitemap']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -36,6 +36,13 @@ def _set_versioned_baseurl(app, config):
 
 def setup(app):
     app.connect('config-inited', _set_versioned_baseurl)
+
+
+# -- Sitemap -----------------------------------------------------------------
+# sphinx-sitemap writes <version>/sitemap.xml from the versioned html_baseurl above.
+# The docs hub (cryptnox.github.io) lists these files in docs.cryptnox.com/robots.txt.
+sitemap_url_scheme = "{link}"
+sitemap_excludes = ["search.html", "genindex.html"]
 html_title = 'Cryptnox Hardware Wallet Docs'
 
 html_meta = {
