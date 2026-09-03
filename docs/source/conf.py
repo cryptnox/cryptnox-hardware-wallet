@@ -41,7 +41,24 @@ language = 'en'
 
 # -- SEO meta tags -----------------------------------------------------------
 
-html_baseurl = 'https://cryptnox.github.io/cryptnox-hardware-wallet/'
+# -- Canonical URL -----------------------------------------------------------
+# The site is published at https://docs.cryptnox.com/cryptnox-hardware-wallet/<version>/
+# (sphinx-multiversion writes every version branch into its own sub-folder and passes
+# the branch name as smv_current_version). The canonical/og:url must include that
+# sub-folder, otherwise every page points at a URL that does not exist (404).
+# The fallback (no version) is only for local single-version builds.
+
+_DOCS_ROOT = 'https://docs.cryptnox.com/cryptnox-hardware-wallet/'
+html_baseurl = _DOCS_ROOT
+
+
+def _set_versioned_baseurl(app, config):
+    version = getattr(config, 'smv_current_version', '') or ''
+    config.html_baseurl = _DOCS_ROOT + (version + '/' if version else '')
+
+
+def setup(app):
+    app.connect('config-inited', _set_versioned_baseurl)
 html_title = 'Cryptnox Hardware Wallet Docs'
 
 html_meta = {
