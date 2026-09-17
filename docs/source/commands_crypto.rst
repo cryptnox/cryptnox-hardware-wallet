@@ -75,6 +75,13 @@ cycle before accepting new PIN verification, and it returns ``0x63C0``. After a 
 if the card still throws ``0x63C0``, that means the PIN is blocked and the ``UNBLOCK PIN``
 command must be used.
 
+.. note::
+
+   If a wipe code has been configured (see :ref:`cmd-set-wipe-code`), entering that code here
+   erases the card instead of unlocking it and returns ``0x6F03`` (a dedicated wipe status word,
+   distinct from ``0x6986``). The correct PIN still unlocks normally; any other value is an
+   ordinary wrong-PIN attempt.
+
 **Status Words**
 
 .. list-table::
@@ -92,7 +99,9 @@ command must be used.
    * - ``0x6700``
      - Incorrect data length
    * - ``0x6986``
-     - Card not initialized or PIN auth disabled
+     - Card not initialized or PIN authentication disabled
+   * - ``0x6F03``
+     - Wipe code entered — the card has been erased (see :ref:`cmd-set-wipe-code`)
 
 ----
 
@@ -181,6 +190,11 @@ except if PinAuth is disabled.
 
 **P1=other** — Returns remaining PIN tries with ``0x63Cx``. Resets any user auth.
 
+.. note::
+
+   If a wipe code is configured (see :ref:`cmd-set-wipe-code`), a new PIN equal to it is refused
+   with ``0x6985``: the PIN and the wipe code must never be the same value.
+
 **Status Words**
 
 .. list-table::
@@ -194,14 +208,16 @@ except if PinAuth is disabled.
    * - ``0x6A80``
      - Invalid PIN/PUK format
    * - ``0x6985``
-     - PIN not validated or card not initialized. Also returned when bad PUK
-       provided to change PIN (this is considered as PIN not validated).
+     - PIN not validated or card not initialized, or the new PIN equals the stored wipe code.
+       Also returned when bad PUK provided to change PIN (this is considered as PIN not validated).
    * - ``0x9840``
      - PUK given is invalid (when P1=0x01)
    * - ``0x63Cx``
      - Remaining PIN tries (when P1=other)
 
 ----
+
+.. _cmd-unblock-pin:
 
 UNBLOCK PIN
 -----------
@@ -269,9 +285,130 @@ throws ``0x63C0`` without checking the PUK.
    * - ``0x6A80``
      - Format invalid (not 21 bytes or non-digit PIN)
    * - ``0x6985``
-     - PIN is not blocked or PinAuth disabled
+     - PIN is not blocked, PinAuth disabled, or the new PIN equals the stored wipe code
    * - ``0x63Cx``
      - Wrong PUK. x = remaining tries before power cycle
+
+----
+
+.. _cmd-set-wipe-code:
+
+SET WIPE CODE
+-------------
+
+**Request APDU** (encrypted)
+
+.. list-table::
+   :header-rows: 1
+   :widths: 12 12 12 12 12 40
+
+   * - CLA
+     - INS
+     - P1
+     - P2
+     - LC
+     - Data
+   * - ``0x80``
+     - ``0x23``
+     - Mode
+     - ``0x00``
+     - var
+     - MAC | Encrypted data
+
+**Preconditions**: Secure Channel must be opened, the card must be seeded, and PIN
+authentication must be enabled. Setting or changing a wipe code (``P1=0x01``) additionally
+requires that reset is enabled. Removing a wipe code (``P1=0x00``) is available whenever PIN
+authentication is enabled.
+
+Sets, changes, or removes a *wipe code*: a second, PIN-shaped secret meant for use under
+coercion. It looks exactly like a PIN, but entering it at any PIN prompt (see below) performs a
+full factory reset of the card instead of unlocking it. Both the PUK and the current PIN are
+required to change this setting.
+
+- **P1 = 0x01** — set or change the wipe code (idempotent: the current wipe code is never asked
+  for, the new value simply replaces any previous one).
+- **P1 = 0x00** — remove the wipe code.
+
+**Request Data — Set / change mode** (``P1=0x01``, 30 bytes plaintext)
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - PUK
+     - 12B
+     - Reset PUK code
+   * - PIN
+     - 9B
+     - Current PIN, digit characters ``'0'``-``'9'`` (right-padded)
+   * - Wipe code
+     - 9B
+     - New wipe code, 4 to 9 digits ``'0'``-``'9'`` (right-padded), must differ from the PIN
+
+**Request Data — Remove mode** (``P1=0x00``, 21 bytes plaintext)
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 15 60
+
+   * - Field
+     - Size
+     - Description
+   * - PUK
+     - 12B
+     - Reset PUK code
+   * - PIN
+     - 9B
+     - Current PIN, digit characters ``'0'``-``'9'`` (right-padded)
+
+The wipe code has the same characteristics as the PIN: 4 to 9 digits, right-padded to the 9-byte
+field, and entered later with exactly the digits it was set with. It must not be equal to the
+current PIN.
+
+**Duress behaviour**: once a wipe code is set, entering it where the card expects a PIN — the
+:ref:`cmd-verify-pin` command, or the inline PIN of a :ref:`cmd-sign` command — erases the card
+(the same effect as :ref:`cmd-reset`) and returns the dedicated wipe status word ``0x6F03``. The
+correct PIN keeps unlocking the
+card normally, and any other value is an ordinary wrong-PIN attempt. The PIN-less signing path
+carries no PIN and is therefore not affected.
+
+**Interactions**:
+
+- Disabling PIN authentication (:ref:`cmd-set-pin-auth`) while a wipe code is set is allowed; the
+  wipe code is kept but becomes **dormant** (there is no PIN prompt to enter it at) and is
+  restored, unchanged, when PIN authentication is re-enabled.
+- Permanently disabling reset (:ref:`cmd-reset` with ``P1=1``) is refused while a wipe code is
+  set — remove the wipe code first.
+- ``CHANGE PIN`` / ``UNBLOCK PIN`` refuse a new PIN equal to the stored wipe code.
+
+Whether a wipe code is currently set is reported by the card status byte returned by
+:ref:`cmd-select` (see :doc:`lifecycle`).
+
+**Status Words**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - SW
+     - Description
+   * - ``0x9000``
+     - Wipe code set, changed, or removed
+   * - ``0x9840``
+     - Wrong PUK
+   * - ``0x63Cx``
+     - Wrong PIN. x = remaining attempts
+   * - ``0x6985``
+     - Card not seeded, reset disabled (set/change), or wipe code equal to the PIN
+   * - ``0x6986``
+     - PIN authentication is disabled
+   * - ``0x6A80``
+     - Wrong data length or invalid wipe-code digit format
+   * - ``0x6A86``
+     - Invalid P1 (must be ``0x00`` or ``0x01``)
 
 ----
 
@@ -1219,6 +1356,8 @@ genuinely belongs to this card, by checking the signature against the card's cer
      - Invalid P1
 
 ----
+
+.. _cmd-reset:
 
 RESET
 -----

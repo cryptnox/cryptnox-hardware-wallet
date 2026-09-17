@@ -93,6 +93,8 @@ the card's current state and capabilities before proceeding with further operati
      - xpub output enabled
    * - 1
      - Clear read of current public key enabled
+   * - 0
+     - Wipe code set
 
 **PubKey flag bits**:
 
