@@ -93,6 +93,8 @@ the card's current state and capabilities before proceeding with further operati
      - xpub output enabled
    * - 1
      - Clear read of current public key enabled
+   * - 0
+     - Wipe code set
 
 **PubKey flag bits**:
 
@@ -563,8 +565,10 @@ The card generates a random 256-bit salt which is sent to the client.
 The ``SessionCardPublicKey`` is received in the ``GET CARD CERTIFICATE`` response. The
 ``SessionUserPublicKey`` is transmitted to the card in this command.
 
-For the mutual authentication, any IV can be used for the first encrypted message. Then the
-IV to use is the latest MAC field received from the counterpart.
+The initial IV for the first encrypted message is derived from the session encryption key (its
+first 16 bytes), so both parties start from the same known value. Then the IV to use is the
+latest MAC field received from the counterpart. Opening the channel also resets the per-session
+anti-replay counter that is folded into every subsequent MAC (see :doc:`secure_channel`).
 
 **Status Words**
 
@@ -610,10 +614,12 @@ MUTUALLY AUTHENTICATE
 This APDU command allows both parties to verify that the keys generated in the
 ``OPEN SECURE CHANNEL`` step are matching and thus guarantee authentication of the counterpart.
 
-The data sent by both parties is a 256-bit random number. The APDU data is sent encrypted
-with the keys generated in the ``OPEN SECURE CHANNEL`` step. Each party must verify the MAC
-of the received APDU. If the MAC and padding can be verified, it means that both parties are
-using the same keys.
+The client sends a 256-bit random challenge, encrypted with the keys generated in the
+``OPEN SECURE CHANNEL`` step. The card replies with a proof computed as
+``SHA256( SessionEncryptionKey | challenge )``. Because the client derived the same session
+encryption key, it recomputes this digest and compares: a match proves the card holds the session
+encryption key, bound to the challenge it was just sent. The successful encrypted round-trip
+likewise proves the client holds the keys, so both parties are mutually authenticated.
 
 Only after this step has been executed can the secure channel be considered to be opened and
 other commands sent.
@@ -627,9 +633,9 @@ other commands sent.
    * - Field
      - Size
      - Description
-   * - Random
+   * - Challenge
      - 32B
-     - 256-bit random number
+     - 256-bit random challenge from the client
 
 **Response Data (plaintext after decryption)** — 32 bytes
 
@@ -640,9 +646,9 @@ other commands sent.
    * - Field
      - Size
      - Description
-   * - Random
+   * - Proof
      - 32B
-     - 256-bit random number from the card
+     - ``SHA256( SessionEncryptionKey | challenge )`` computed by the card
 
 If the authentication fails the card responds with ``0x6982``. In this case the
 ``OPEN SECURE CHANNEL`` command must be repeated to generate new keys.

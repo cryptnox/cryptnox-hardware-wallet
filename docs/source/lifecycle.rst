@@ -106,6 +106,12 @@ The reset command erases everything in the card, including all three key derivat
 (``secp256k1``, ``secp256r1``, and ``Ed25519``), and makes the card as it was before the
 initialization.
 
+.. note::
+
+   The same full erase can be triggered under coercion by entering a configured *wipe code* at
+   the PIN prompt, without the PUK or the ``RESET`` command. See
+   :ref:`cmd-set-wipe-code` and :doc:`authentication`.
+
 .. important::
 
    The PUK tries are unlimited, but there is an internal loop hash that takes time inside the

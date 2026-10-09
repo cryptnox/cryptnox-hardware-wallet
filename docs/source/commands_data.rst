@@ -424,11 +424,14 @@ When P1=0x00/0x10/0x20 with P2=0x00 or P2=0x01, no data is required.
 The xpub export must first be enabled using :ref:`SET PUB EXPORT <cmd-set-pub-export>` (P1=0).
 By default this capability is disabled from factory and after reset.
 
-The response approximately matches the binary serialization format defined in the BIP32 standard.
-The difference is the fingerprint is given as 32 bytes (the full SHA-256 of the parent key) instead
-of the standard 4 bytes --- the host must apply an external RIPEMD-160 computation and take the
-first 4 bytes to obtain the final BIP32 fingerprint (except for the master key, which is all zeros).
-There is no checksum, as the data is not Base58-encoded.
+The response approximately matches the binary serialization format defined in the BIP32 standard,
+with one difference: the parent fingerprint is returned as the full 32-byte ``SHA-256`` of the
+parent's compressed public key instead of the standard 4 bytes (see the table below), and there is
+no trailing checksum, as the data is not Base58-encoded.
+
+The Cryptnox SDK and CLI complete this for you: ``get_xpub`` applies the ``RIPEMD-160`` step,
+prepends the version bytes and appends the Base58Check checksum, returning a ready-to-use standard
+``xpub`` string.
 
 .. list-table::
    :header-rows: 1
@@ -445,7 +448,7 @@ There is no checksum, as the data is not Base58-encoded.
      - Derivation depth
    * - Fingerprint
      - 32B
-     - Parent key fingerprint (needs external RIPEMD-160 to get 4B)
+     - ``SHA-256`` of the parent's compressed public key (see note above)
    * - Child number
      - 4B
      - Child index

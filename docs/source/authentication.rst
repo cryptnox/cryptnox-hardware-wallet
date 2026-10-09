@@ -150,3 +150,41 @@ by user authentication (public keys registered).
    - :ref:`cmd-add-user-key`, :ref:`cmd-check-user-key`, and :ref:`cmd-set-pin-auth` commands
      for full APDU specifications
    - :doc:`signing` for details on how signing resets authentication state
+
+Wipe code (duress erase)
+------------------------
+
+The card can hold an optional **wipe code**: a second secret that looks exactly like a PIN
+(4 to 9 digits) but, when entered where a PIN is expected, erases the card instead of unlocking
+it. It is meant to be handed over under coercion — the holder types the wipe code, the card
+appears to be reset to its factory state, and no seed can be recovered from it.
+
+The wipe code is configured with the ``SET WIPE CODE`` command, which requires both the PUK and
+the current PIN. It can be set, changed, or removed, and it must never be equal to the PIN.
+
+Once set, entering the wipe code triggers the erase at either duress surface:
+
+- the :ref:`cmd-verify-pin` command, or
+- the inline PIN of a :ref:`cmd-sign` command.
+
+The correct PIN keeps unlocking the card as usual, and any other value is an ordinary wrong-PIN
+attempt. The PIN-less signing path carries no PIN and cannot trigger a wipe.
+
+.. important::
+
+   The wipe code is a safety feature, not a stealth one: whether a card has a wipe code set is
+   visible in its status. Configuring one is a deliberate choice and, once entered, the erase is
+   irreversible.
+
+Interactions with other settings:
+
+- **Disabling PIN authentication** while a wipe code is set is allowed. Because there is then no
+  PIN prompt to enter it at, the wipe code becomes *dormant* — it is kept, does nothing, and is
+  restored unchanged when PIN authentication is re-enabled.
+- **Permanently disabling reset** is refused while a wipe code is set; remove the wipe code first.
+- ``CHANGE PIN`` and ``UNBLOCK PIN`` refuse a new PIN equal to the stored wipe code.
+
+.. seealso::
+
+   - :ref:`cmd-set-wipe-code` for the full APDU specification
+   - :ref:`cmd-verify-pin` and :ref:`cmd-sign` for the duress surfaces

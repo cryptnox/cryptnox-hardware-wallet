@@ -123,6 +123,11 @@ User authentication
      - ✓
      - ✗
      - ✓
+   * - Set Wipe Code
+     - Sets/changes/removes a duress wipe code (erases the card when entered).
+     - ✓
+     - ✓ PIN
+     - ✓
 
 Key management
 --------------

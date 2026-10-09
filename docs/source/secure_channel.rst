@@ -38,11 +38,20 @@ Mutual authentication
 ---------------------
 
 Right after the secure channel is opened, the user shall test it using the ``MUTUALLY AUTHENTICATE``
-command. A successful encryption-decryption full loop means the device and the client have the
-same pairing key, authenticating each other.
+command. The client sends a 256-bit random challenge; the card replies with a proof computed as
+``SHA256( SessionEncryptionKey | challenge )``. Because the client also derived the same session
+encryption key, it recomputes this digest and compares. A match proves that the card holds the
+session encryption key and has bound its answer to the fresh challenge — the card is explicitly
+authenticated to the client, and the successful encrypted round-trip authenticates the client to
+the card. Both directions therefore confirm the two parties share the same pairing key.
 
 If the authentication fails the card responds with ``0x6982``. In this case the
 ``OPEN SECURE CHANNEL`` command must be repeated to generate new keys.
+
+The initial IV for the first encrypted message of the session is derived from the session
+encryption key (its first 16 bytes), so both parties start the MAC-IV chain from the same known
+value rather than an arbitrary one. From then on the IV is the latest MAC exchanged (see
+`Encrypted APDUs`_ below).
 
 .. seealso::
 
@@ -90,8 +99,20 @@ To decrypt the data both the card and the client do the following:
 3. The padding is removed.
 
 The IV used for the encryption is the last seen MAC from the counterpart. This optimizes the
-number of transmitted bytes and guarantees protection from replay attacks. For the MAC
+number of transmitted bytes and chains the messages of a session together. For the MAC
 generation, a zero IV is always used.
+
+Anti-replay counter
+^^^^^^^^^^^^^^^^^^^
+
+Each session maintains a per-session command counter that starts at zero when the secure channel
+is opened and is incremented once per command. Its current value is included in the MAC of every
+message, in both directions — a command and the response that answers it share the same counter
+value — but the counter itself is never transmitted. Because the counter advances with each
+command and is bound into the MAC, a replayed or reordered message carries a stale counter: the
+recomputed MAC no longer matches, the card responds ``0x6982``, and the secure channel is closed.
+The counter is reset with every new ``OPEN SECURE CHANNEL``, so protection is scoped to the
+current session.
 
 MAC generation for C-APDUs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
