@@ -156,8 +156,9 @@ Security certifications
      - Scope
    * - Common Criteria ``EAL6+``
      - Hardware and embedded software assurance
-   * - ``FIPS 140-2/3``
-     - Cryptographic primitives (``AES``, ``SHA``, ``RNG``)
+   * - ``FIPS 140`` (platform)
+     - NXP's JCOP 4 platforms have been FIPS 140 validated as cryptographic
+       modules; the validation covers the platform, not the wallet applet
 
 The architecture is hardened against side-channel attacks (``DPA``/``SPA``) and fault injection
 attempts, safeguarding against both passive and active threats.
